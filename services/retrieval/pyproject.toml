@@ -1,0 +1,10 @@
+[project]
+name = "luatvn-ai-retrieval"
+version = "0.0.1"
+description = "Derived keyword/dense/graph indexes, query execution, filtering and reranking"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.luatvn]
+contracts_version = "0.2.1-draft"
+scope = "V1"

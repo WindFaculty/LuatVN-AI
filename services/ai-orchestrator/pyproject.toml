@@ -1,0 +1,10 @@
+[project]
+name = "luatvn-ai-ai-orchestrator"
+version = "0.0.1"
+description = "Routing, Standard/Advanced workflows, answer envelope, run state, SSE & verification"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.luatvn]
+contracts_version = "0.2.1-draft"
+scope = "V1"

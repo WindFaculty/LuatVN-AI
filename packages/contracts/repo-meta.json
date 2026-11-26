@@ -1,0 +1,16 @@
+{
+  "name": "LuatVN-AI-contracts",
+  "namespace": "WindFaculty",
+  "repository": "https://github.com/WindFaculty/LuatVN-AI",
+  "visibility": "PRIVATE",
+  "default_branch": "main",
+  "scope": "V1",
+  "kind": "contracts",
+  "owner": "Trần Xuân Khoa",
+  "contracts_version": "0.2.1-draft",
+  "container_image": null,
+  "target_gate": "G0/G1",
+  "status": "skeleton_g0",
+  "adr_ref": "ADR-07",
+  "component_path": "packages/contracts"
+}

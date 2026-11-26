@@ -1,0 +1,231 @@
+{
+  "run_id": "G1-POC02-20261126-SYNTH-01",
+  "dataset": "synthetic-v1",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python_version": "3.12.10",
+  "python_packages": {
+    "pypdf": "6.19.0",
+    "reportlab": "5.0.1",
+    "pillow": "13.0.0"
+  },
+  "ocr": {
+    "node": "v24.19.0",
+    "tesseract": "7.0.0",
+    "core": "7.0.0",
+    "language": "vie",
+    "languagePackage": "1.0.0",
+    "model": "4.0.0_best_int",
+    "modelSha256": "2284f610f262a1b19ec8df9f196b9ff6ce38ddb4a66329e998941df4b8961c8d",
+    "pageSegmentation": "SPARSE_TEXT"
+  },
+  "fixture_font": {
+    "file": "arial.ttf",
+    "sha256": "edfbd22a3d088fc2f5d7c79b8c9c732df6dc878a60f0a80be0f92a3c7a634404"
+  },
+  "results": {
+    "digital": {
+      "sha256": "3af4e274aafe57a6e7e07f1694e7c08da48c7596ab0a918d789b056f7d368e80",
+      "raw_bytes": 46791,
+      "has_text_layer": true,
+      "expected_anchors": [
+        "Điều 1",
+        "1",
+        "Điều 5a",
+        "2",
+        "2a",
+        "Phụ lục I"
+      ],
+      "observed_anchors": [
+        "Điều 1",
+        "1",
+        "Điều 5a",
+        "2",
+        "2a",
+        "Phụ lục I"
+      ],
+      "missing_anchors": [],
+      "exact_expected_lines_found": 7,
+      "expected_line_count": 10,
+      "exact_table_rows_found": 0,
+      "expected_table_row_count": 3,
+      "missing_exact_lines": [
+        "Mã Giá trị",
+        "M-01 123",
+        "M-02 456"
+      ],
+      "extracted_lines": [
+        "MẪU TỔNG HỢP — DỮ LIỆU KIỂM THỬ",
+        "Điều 1. Phạm vi của mẫu",
+        "1. Văn bản giả lập chỉ dùng để kiểm thử.",
+        "Điều 5a. Quy trình đối chiếu",
+        "2. Đối chiếu mã hồ sơ với phụ lục.",
+        "2a. Ghi nhận ngày và địa bàn kiểm tra.",
+        "Phụ lục I. Bảng dữ liệu mẫu",
+        "Mã",
+        "Giá trị",
+        "M-01",
+        "123",
+        "M-02",
+        "456"
+      ],
+      "character_edits": 0,
+      "reference_characters": 256,
+      "character_error_rate": 0.0,
+      "normalized_utf8_bytes": 348,
+      "layout_mode": {
+        "expected_anchors": [
+          "Điều 1",
+          "1",
+          "Điều 5a",
+          "2",
+          "2a",
+          "Phụ lục I"
+        ],
+        "observed_anchors": [
+          "Điều 1",
+          "1",
+          "Điều 5a",
+          "2",
+          "2a",
+          "Phụ lục I"
+        ],
+        "missing_anchors": [],
+        "exact_expected_lines_found": 10,
+        "expected_line_count": 10,
+        "exact_table_rows_found": 3,
+        "expected_table_row_count": 3,
+        "missing_exact_lines": [],
+        "extracted_lines": [
+          "MẪU TỔNG HỢP — DỮ LIỆU KIỂM THỬ",
+          "Điều 1. Phạm vi của mẫu",
+          "1. Văn bản giả lập chỉ dùng để kiểm thử.",
+          "Điều 5a. Quy trình đối chiếu",
+          "2. Đối chiếu mã hồ sơ với phụ lục.",
+          "2a. Ghi nhận ngày và địa bàn kiểm tra.",
+          "Phụ lục I. Bảng dữ liệu mẫu",
+          "Mã Giá trị",
+          "M-01 123",
+          "M-02 456"
+        ],
+        "character_edits": 0,
+        "reference_characters": 256,
+        "character_error_rate": 0.0,
+        "normalized_utf8_bytes": 348
+      }
+    },
+    "scan_clear": {
+      "sha256": "004b60af2a2ce3ba1d3326faea5971aa6f487d992a358aa98503da638c0998be",
+      "raw_bytes": 31069,
+      "has_text_layer": false,
+      "expected_anchors": [
+        "Điều 1",
+        "1",
+        "Điều 5a",
+        "2",
+        "2a",
+        "Phụ lục I"
+      ],
+      "observed_anchors": [
+        "Điều 1",
+        "1",
+        "Điều 5a",
+        "2",
+        "2a",
+        "Phụ lục I"
+      ],
+      "missing_anchors": [],
+      "exact_expected_lines_found": 4,
+      "expected_line_count": 10,
+      "exact_table_rows_found": 0,
+      "expected_table_row_count": 3,
+      "missing_exact_lines": [
+        "MẪU TỔNG HỢP — DỮ LIỆU KIỂM THỬ",
+        "1. Văn bản giả lập chỉ dùng để kiểm thử.",
+        "Điều 5a. Quy trình đối chiếu",
+        "Mã Giá trị",
+        "M-01 123",
+        "M-02 456"
+      ],
+      "extracted_lines": [
+        "MẪU TỎNG HỢP — DỮ LIỆU KIẾM THỬ",
+        "Điều 1. Phạm vi của mẫu",
+        "1. Văn bản giả lập chỉ dùng đề kiểm thử.",
+        "Điều 5a. Quy trình đối chiều",
+        "2. Đối chiếu mã hồ sơ với phụ lục.",
+        "2a. Ghi nhận ngày và địa bàn kiểm tra.",
+        "Phụ lục I. Bảng dữ liệu mẫu",
+        "Mã",
+        "Giá trị",
+        "M-01",
+        "123",
+        "M-02",
+        "456"
+      ],
+      "character_edits": 4,
+      "reference_characters": 256,
+      "character_error_rate": 0.0156,
+      "normalized_utf8_bytes": 348,
+      "ocr_confidence": 93
+    },
+    "scan_degraded": {
+      "sha256": "3353b751378a3d694e678d33595efb1defa9e8a5f8613a9d1e629ad24af0c4ed",
+      "raw_bytes": 18345,
+      "has_text_layer": false,
+      "expected_anchors": [
+        "Điều 1",
+        "1",
+        "Điều 5a",
+        "2",
+        "2a",
+        "Phụ lục I"
+      ],
+      "observed_anchors": [
+        "Điều 5a",
+        "3a"
+      ],
+      "missing_anchors": [
+        "Điều 1",
+        "1",
+        "2",
+        "2a",
+        "Phụ lục I"
+      ],
+      "exact_expected_lines_found": 0,
+      "expected_line_count": 10,
+      "exact_table_rows_found": 0,
+      "expected_table_row_count": 3,
+      "missing_exact_lines": [
+        "MẪU TỔNG HỢP — DỮ LIỆU KIỂM THỬ",
+        "Điều 1. Phạm vi của mẫu",
+        "1. Văn bản giả lập chỉ dùng để kiểm thử.",
+        "Điều 5a. Quy trình đối chiếu",
+        "2. Đối chiếu mã hồ sơ với phụ lục.",
+        "2a. Ghi nhận ngày và địa bàn kiểm tra.",
+        "Phụ lục I. Bảng dữ liệu mẫu",
+        "Mã Giá trị",
+        "M-01 123",
+        "M-02 456"
+      ],
+      "extracted_lines": [
+        "MU TÔNG HỢP —ĐỮ LIỆU KIỆM THỪ",
+        "Điều }. Phạm v của mẫu.",
+        "1+. Vân bản giả lập chỉ động đề bên Đi",
+        "Điều 5a. Quy tình đôi chiếu",
+        "12 Đề chiếu mã hỗ sơ với phụ he.",
+        "3a. Ghi nhận ngày và địa bản kiểm ta",
+        "09g te L Băng dỡ liệu mẫu",
+        "Gaw,",
+        "Mi",
+        "x",
+        "Mới",
+        "M92",
+        "cũ"
+      ],
+      "character_edits": 66,
+      "reference_characters": 256,
+      "character_error_rate": 0.2578,
+      "normalized_utf8_bytes": 319,
+      "ocr_confidence": 65
+    }
+  }
+}

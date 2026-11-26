@@ -1,0 +1,10 @@
+[project]
+name = "luatvn-ai-data-ingestion"
+version = "0.0.1"
+description = "Source metadata, checkpoints, raw/quarantine objects, parser/OCR, validation reports"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.luatvn]
+contracts_version = "0.2.1-draft"
+scope = "V1"

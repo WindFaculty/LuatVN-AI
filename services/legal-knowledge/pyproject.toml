@@ -1,0 +1,10 @@
+[project]
+name = "luatvn-ai-legal-knowledge"
+version = "0.0.1"
+description = "Legal versions, bitemporal assertions, taxonomy, graph & rule registry, snapshot manifest"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.luatvn]
+contracts_version = "0.2.1-draft"
+scope = "V1"

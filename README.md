@@ -1,20 +1,26 @@
-# LuatVN-AI-control
+# LuatVN-AI
 
-- **Namespace**: `github.com/WindFaculty` (`PRIVATE`, nhánh mặc định `main`)
-- **Phạm vi**: `V1` · **Chủ sở hữu**: Trần Xuân Khoa
-- **Phiên bản Contract pin**: `0.2.1-draft` (`WindFaculty/LuatVN-AI-contracts`)
-- **Trạng thái**: Đã chốt G0 (2026-11-26) — chứa Requirements Baseline, 14 hồ sơ G0, ADR-01/05, `workspace.manifest.json` và `docs/repo-inventory.md`.
+Monorepo private cho Luật Việt Nam AI. G0 đã nghiệm thu theo bộ hồ sơ v0.2.1. G1 đang triển khai khảo sát và PoC. [Baseline v1.1](Luat_Viet_Nam_AI_Requirements_Baseline_v1.1.md) · [ADR-07](docs/adr/ADR-07-monorepo-and-demo.md) · [Bằng chứng G1](docs/g1/README.md).
 
-## Cấu trúc chính
-- `Luat_Viet_Nam_AI_Requirements_Baseline_v1.0.md` — Căn cứ yêu cầu gốc
-- `docs/g0/` — Bộ 14 hồ sơ nền G0, RTM, sổ đăng ký, ADR-01/05, contracts mẫu và SQL mẫu
-- `docs/repo-inventory.md` — Bảng kiểm kê 16 repository private (URL, visibility, branch, commit SHA)
-- `workspace.manifest.json` — Manifest pin toàn bộ 16 repo cho meta-workspace
-- `scripts/verify-control.py` — Kiểm tra SHA-256, 123/123 RTM, liên kết nội bộ và manifest
-- `scripts/sync-workspace.py` — Kiểm tra trạng thái meta-workspace thư mục anh em và chặn drift contract
+| Thư mục | Nội dung |
+|---|---|
+| `apps/` | Legal Web và Legal AI Studio |
+| `services/` | Account Workspace, Data Ingestion, Legal Knowledge, Retrieval, AI Orchestrator, Model Gateway và Evaluation |
+| `packages/contracts/` | OpenAPI, JSON Schema, kiểm sinh kiểu và fixture |
+| `docs/` | Kiến trúc hiện hành, hồ sơ G0 và bằng chứng G1 |
+| `experiments/g1/` | Harness parser/OCR tổng hợp |
+| `infra/` | Ranh giới build, phát hành và cấu hình hạ tầng |
+
+`workspace.manifest.json` ghi danh mục component và SHA nhập từ các repo cũ. Phạm vi LATER theo backlog. [Kiến trúc và truy vết hiện hành](docs/architecture/current-repository-layout.md) · [Kiểm kê chuyển đổi](docs/repo-inventory.md).
+
+[LuatVN-AI-demo](https://github.com/WindFaculty/LuatVN-AI-demo) quản lý cấu hình triển khai và dữ liệu mẫu cho sandbox. Bản phát hành demo ghim image theo digest từ monorepo.
 
 ## Kiểm thử
-```bash
-python scripts/verify-control.py
-python scripts/sync-workspace.py --all
+
+Chạy tại thư mục gốc với Python 3.12+ và Node.js. Dùng `--smoke` để kiểm tất cả service và app trong cùng checkout.
+
+```powershell
+rtk proxy python -X utf8 scripts/verify-workspace.py --smoke
 ```
+
+Workflow chung chạy bước trên và kiểm contract bằng Redocly, TypeScript, Pydantic và fixture Answer/SSE. [Lệnh kiểm hợp đồng](packages/contracts/contracts/README.md) · [Workflow](.github/workflows/ci.yml).

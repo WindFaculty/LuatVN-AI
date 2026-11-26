@@ -1,0 +1,10 @@
+[project]
+name = "luatvn-ai-model-gateway"
+version = "0.0.1"
+description = "Approved LLM provider allowlist, privacy eligibility, routing, quota reservations & usage ledger"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.luatvn]
+contracts_version = "0.2.1-draft"
+scope = "V1"

@@ -1,0 +1,10 @@
+[project]
+name = "luatvn-ai-evaluation"
+version = "0.0.1"
+description = "Benchmark 1,000+ L2/L3 dataset, group splits, holdout, ablation & regression gates"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.luatvn]
+contracts_version = "0.2.1-draft"
+scope = "V1"

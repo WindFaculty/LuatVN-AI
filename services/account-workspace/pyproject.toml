@@ -1,0 +1,10 @@
+[project]
+name = "luatvn-ai-account-workspace"
+version = "0.0.1"
+description = "Membership, session scopes, conversation, feedback, consent, age eligibility"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.luatvn]
+contracts_version = "0.2.1-draft"
+scope = "V1"

@@ -1,0 +1,16 @@
+{
+  "name": "LuatVN-AI-studio",
+  "namespace": "WindFaculty",
+  "repository": "https://github.com/WindFaculty/LuatVN-AI",
+  "visibility": "PRIVATE",
+  "default_branch": "main",
+  "scope": "V1",
+  "kind": "frontend",
+  "owner": "Trần Xuân Khoa",
+  "contracts_version": "0.2.1-draft",
+  "container_image": "ghcr.io/windfaculty/luatvn-ai-studio",
+  "target_gate": "G6",
+  "status": "skeleton_g0",
+  "adr_ref": "ADR-07",
+  "component_path": "apps/studio"
+}

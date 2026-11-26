@@ -1,174 +1,147 @@
 {
-  "schema_version": "1.0",
-  "project": "Luat Viet Nam AI",
-  "namespace": "WindFaculty",
-  "prefix": "LuatVN-AI-",
-  "registry": "ghcr.io/windfaculty",
-  "contracts_repo": "LuatVN-AI-contracts",
+  "schema_version": "2.0",
+  "repository": "WindFaculty/LuatVN-AI",
+  "demo_repository": "WindFaculty/LuatVN-AI-demo",
+  "baseline": "Luat_Viet_Nam_AI_Requirements_Baseline_v1.1.md",
+  "architecture_decision": "docs/adr/ADR-07-monorepo-and-demo.md",
   "contracts_version": "0.2.1-draft",
-  "contracts_commit": "da324ba459778526456a0e19e03973f3ab71684f",
-  "g0_approved_date": "2026-11-26",
-  "approved_by": "Trần Xuân Khoa",
-  "repositories": [
+  "components": [
     {
-      "name": "LuatVN-AI-account-workspace",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-account-workspace.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "V1",
+      "path": "services/account-workspace",
       "kind": "python",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "1d0233be3d54bac247bfa763fced4a5dba401906"
+      "previous_repository": "WindFaculty/LuatVN-AI-account-workspace",
+      "imported_commit": "1d0233be3d54bac247bfa763fced4a5dba401906"
     },
     {
-      "name": "LuatVN-AI-legal-knowledge",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-legal-knowledge.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "V1",
+      "path": "services/legal-knowledge",
       "kind": "python",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "bf6f179a056c28dbd2af66618e56fdad547c5d1b"
+      "previous_repository": "WindFaculty/LuatVN-AI-legal-knowledge",
+      "imported_commit": "bf6f179a056c28dbd2af66618e56fdad547c5d1b"
     },
     {
-      "name": "LuatVN-AI-data-ingestion",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-data-ingestion.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "V1",
+      "path": "services/data-ingestion",
       "kind": "python",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "77475b595a77eba60cf635bea52389f3237f344f"
+      "previous_repository": "WindFaculty/LuatVN-AI-data-ingestion",
+      "imported_commit": "77475b595a77eba60cf635bea52389f3237f344f"
     },
     {
-      "name": "LuatVN-AI-retrieval",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-retrieval.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "V1",
+      "path": "services/retrieval",
       "kind": "python",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "a690bbcf8235a3fc15a17dfed8701d37f35a5f83"
+      "previous_repository": "WindFaculty/LuatVN-AI-retrieval",
+      "imported_commit": "a690bbcf8235a3fc15a17dfed8701d37f35a5f83"
     },
     {
-      "name": "LuatVN-AI-ai-orchestrator",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-ai-orchestrator.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "V1",
+      "path": "services/ai-orchestrator",
       "kind": "python",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "734b2998c5ea6a3b3d855f3bce8142d4b782bb0d"
+      "previous_repository": "WindFaculty/LuatVN-AI-ai-orchestrator",
+      "imported_commit": "734b2998c5ea6a3b3d855f3bce8142d4b782bb0d"
     },
     {
-      "name": "LuatVN-AI-model-gateway",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-model-gateway.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "V1",
+      "path": "services/model-gateway",
       "kind": "python",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "11a85646702e25540ac4267d625337a9ee4e5b9d"
+      "previous_repository": "WindFaculty/LuatVN-AI-model-gateway",
+      "imported_commit": "11a85646702e25540ac4267d625337a9ee4e5b9d"
     },
     {
-      "name": "LuatVN-AI-evaluation",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-evaluation.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "V1",
+      "path": "services/evaluation",
       "kind": "python",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "52f7136741964002ecebb94ed67618359670e0bc"
+      "previous_repository": "WindFaculty/LuatVN-AI-evaluation",
+      "imported_commit": "52f7136741964002ecebb94ed67618359670e0bc"
     },
     {
-      "name": "LuatVN-AI-web",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-web.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "V1",
+      "path": "apps/web",
       "kind": "frontend",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "407fc84feed3db32792dc2159c8e4fade31dee36"
+      "previous_repository": "WindFaculty/LuatVN-AI-web",
+      "imported_commit": "407fc84feed3db32792dc2159c8e4fade31dee36"
     },
     {
-      "name": "LuatVN-AI-studio",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-studio.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "V1",
+      "path": "apps/studio",
       "kind": "frontend",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "84315ca941fa6c686dba32808179d7e96591027f"
+      "previous_repository": "WindFaculty/LuatVN-AI-studio",
+      "imported_commit": "84315ca941fa6c686dba32808179d7e96591027f"
     },
     {
-      "name": "LuatVN-AI-contracts",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-contracts.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "V1",
+      "path": "packages/contracts",
       "kind": "contracts",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "da324ba459778526456a0e19e03973f3ab71684f"
+      "previous_repository": "WindFaculty/LuatVN-AI-contracts",
+      "imported_commit": "da324ba459778526456a0e19e03973f3ab71684f"
+    }
+  ],
+  "legacy_repositories": [
+    {
+      "repository": "WindFaculty/LuatVN-AI-account-workspace",
+      "commit": "1d0233be3d54bac247bfa763fced4a5dba401906",
+      "scope": "V1"
     },
     {
-      "name": "LuatVN-AI-control",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-control.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "V1",
-      "kind": "control",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "SELF_INITIAL_COMMIT"
+      "repository": "WindFaculty/LuatVN-AI-legal-knowledge",
+      "commit": "bf6f179a056c28dbd2af66618e56fdad547c5d1b",
+      "scope": "V1"
     },
     {
-      "name": "LuatVN-AI-document-intelligence",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-document-intelligence.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "LATER",
-      "kind": "later",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "a0308dda3ca395631dd7c887829b090577c8beb2"
+      "repository": "WindFaculty/LuatVN-AI-data-ingestion",
+      "commit": "77475b595a77eba60cf635bea52389f3237f344f",
+      "scope": "V1"
     },
     {
-      "name": "LuatVN-AI-legal-monitoring",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-legal-monitoring.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "LATER",
-      "kind": "later",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "973779c00e5c4b3ae0c02e3c782c531cf35f3abb"
+      "repository": "WindFaculty/LuatVN-AI-retrieval",
+      "commit": "a690bbcf8235a3fc15a17dfed8701d37f35a5f83",
+      "scope": "V1"
     },
     {
-      "name": "LuatVN-AI-billing-enterprise",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-billing-enterprise.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "LATER",
-      "kind": "later",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "204eab24951fdcf70aa293d975823aff147d4071"
+      "repository": "WindFaculty/LuatVN-AI-ai-orchestrator",
+      "commit": "734b2998c5ea6a3b3d855f3bce8142d4b782bb0d",
+      "scope": "V1"
     },
     {
-      "name": "LuatVN-AI-community",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-community.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "LATER",
-      "kind": "later",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "e18723072d19d16d7c1e178e372241b02b7493d7"
+      "repository": "WindFaculty/LuatVN-AI-model-gateway",
+      "commit": "11a85646702e25540ac4267d625337a9ee4e5b9d",
+      "scope": "V1"
     },
     {
-      "name": "LuatVN-AI-mobile",
-      "url": "https://github.com/WindFaculty/LuatVN-AI-mobile.git",
-      "visibility": "PRIVATE",
-      "default_branch": "main",
-      "scope": "LATER",
-      "kind": "later",
-      "contracts_version": "0.2.1-draft",
-      "initial_commit": "5017f19dfc393779987544ff66207bf0180ffba3"
+      "repository": "WindFaculty/LuatVN-AI-evaluation",
+      "commit": "52f7136741964002ecebb94ed67618359670e0bc",
+      "scope": "V1"
+    },
+    {
+      "repository": "WindFaculty/LuatVN-AI-web",
+      "commit": "407fc84feed3db32792dc2159c8e4fade31dee36",
+      "scope": "V1"
+    },
+    {
+      "repository": "WindFaculty/LuatVN-AI-studio",
+      "commit": "84315ca941fa6c686dba32808179d7e96591027f",
+      "scope": "V1"
+    },
+    {
+      "repository": "WindFaculty/LuatVN-AI-contracts",
+      "commit": "da324ba459778526456a0e19e03973f3ab71684f",
+      "scope": "V1"
+    },
+    {
+      "repository": "WindFaculty/LuatVN-AI-document-intelligence",
+      "commit": "a0308dda3ca395631dd7c887829b090577c8beb2",
+      "scope": "LATER"
+    },
+    {
+      "repository": "WindFaculty/LuatVN-AI-legal-monitoring",
+      "commit": "973779c00e5c4b3ae0c02e3c782c531cf35f3abb",
+      "scope": "LATER"
+    },
+    {
+      "repository": "WindFaculty/LuatVN-AI-billing-enterprise",
+      "commit": "204eab24951fdcf70aa293d975823aff147d4071",
+      "scope": "LATER"
+    },
+    {
+      "repository": "WindFaculty/LuatVN-AI-community",
+      "commit": "e18723072d19d16d7c1e178e372241b02b7493d7",
+      "scope": "LATER"
+    },
+    {
+      "repository": "WindFaculty/LuatVN-AI-mobile",
+      "commit": "5017f19dfc393779987544ff66207bf0180ffba3",
+      "scope": "LATER"
     }
   ]
 }

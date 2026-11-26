@@ -1,4 +1,4 @@
-name: Control Docs & Manifest CI
+name: Monorepo CI
 
 on:
   push:
@@ -6,12 +6,41 @@ on:
   pull_request:
 
 jobs:
-  verify-control:
+  workspace:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Verify G0 links, RTM coverage, SHA-256 and workspace manifest
-        run: python scripts/verify-control.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify workspace and run component smoke checks
+        run: python scripts/verify-workspace.py --smoke
+
+  contracts:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/contracts/contracts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Lint OpenAPI
+        run: npx --yes --package=@redocly/cli@2.83.0 redocly lint --extends=spec answers.openapi.yaml
+      - name: Test generated TypeScript and Pydantic models
+        shell: bash
+        run: |
+          build_dir="$(mktemp -d)"
+          npx --yes --package=openapi-typescript@7.13.0 openapi-typescript answers.openapi.yaml --array-length -o "$build_dir/answer-types.ts"
+          cp answer-types.test.ts "$build_dir/"
+          npx --yes --package=typescript@5.9.3 tsc --noEmit --strict "$build_dir/answer-types.test.ts"
+          python -m pip install datamodel-code-generator==0.102.0 jsonschema==4.25.1 PyYAML==6.0.3 pydantic==2.11.4
+          datamodel-codegen --input answers.openapi.yaml --input-file-type openapi --output-model-type pydantic_v2.BaseModel --output "$build_dir/answer_models.py"
+          python -X utf8 verify-contracts.py "$build_dir"

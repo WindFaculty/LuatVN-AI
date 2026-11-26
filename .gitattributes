@@ -1,0 +1,2 @@
+* text=auto eol=lf
+docs/g1/evidence/*.json -text whitespace=cr-at-eol
