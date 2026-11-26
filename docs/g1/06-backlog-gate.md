@@ -24,7 +24,9 @@ Tasks engineering chưa thực hiện trong đợt viết plan ghi PLANNED; các
 
 ## 2. Gate G1
 
-| Check | Điều kiện chấp nhận | Hiện trạng 26/11 |
+Lô thực thi hiện hành và các điều kiện còn mở nằm trong [báo cáo thực thi G1](execution-status-2026-11-26.md#điều-kiện-nghiệm-thu).
+
+| Check | Điều kiện chấp nhận | Tại thời điểm duyệt kế hoạch |
 |---|---|---|
 | G1-AC-A | POC-01 rights per action confirmed cho in-scope pilot và kế hoạch nguồn trọng yếu; catalog/scope có denominator & gap rõ | BLOCKED — pending rights và denominator |
 | G1-AC-B | Taxonomy version có mapping/source evidence, strata và plan phủ toàn bộ lĩnh vực; owner chốt | IN_PROGRESS — 9 nhóm pilot, chưa official |
@@ -40,7 +42,7 @@ Không đổi AC V1. G1 PASS cần tất cả check của G1 có evidence đạt
 
 | ID | Nội dung | Quyết định đã duyệt (ACCEPTED) | Điều kiện còn mở / guardrail |
 |---|---|---|---|
-| G1-D01 | Nguồn ban đầu | Ưu tiên SRC-01/03, xác minh từng quyền khai thác trước khi tải và xử lý dữ liệu | Quyền từng action vẫn cần evidence; chưa crawl hàng loạt nếu chưa được phép |
+| G1-D01 | Nguồn ban đầu | Ưu tiên SRC-01/03. Chủ dự án bổ sung quyền tải mẫu công khai theo URL chọn trước và xử lý nội bộ. [Phê duyệt bổ sung](evidence/owner-decision-g1-d01-2026-11-26.md) | Dẫn nguồn, pin quyền từng action của lô. Crawl catalog và phân phối toàn bộ cần phạm vi riêng. |
 | G1-D02 | Taxonomy và quy mô pilot | Giữ 9 nhóm pilot, mở rộng sub-domain theo catalog; 45 families / 36 artifacts / 18 graph families / 27 review cases | Chưa phải taxonomy chính thức hay coverage toàn quốc. Báo thiếu mẫu, không tự giảm scope V1 |
 | G1-D03 | Kiểm chứng pháp lý | Chủ dự án tự review L2, đo công sức và giữ case cần L3 ở PENDING_L3 cho đến khi có chuyên gia | Không tự gán L3, không đếm case thiếu required tier; blocker/lịch vẫn phải quản lý |
 | G1-D04 | Ngưỡng parser & graph | Dùng các ngưỡng pilot trong [G1-03](03-parser-quality-plan.md) và [G1-04](04-data-graph-storage-plan.md), khóa trước audit | Manifest/rubric/scope/config phải pin trước audit; không chỉnh ngưỡng khi thấy kết quả để PASS |

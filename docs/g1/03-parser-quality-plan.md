@@ -45,3 +45,9 @@ Nguồn được duyệt → fetch/checkpoint → raw hash/immutable metadata �
 - Lưu extraction diff JSON/CSV đã che, summary by format, version/time/size/log và manual correction time. Số liệu thật tách synthetic, chưa chạy ghi NOT_RUN.
 
 Khi hoàn thành, đề xuất parser configurable theo format và đường fallback/review; ADR-03 chỉ ghi phần có evidence POC-02. Các phần embedding/rerank/rule/LLM chờ G2–G4; không ACCEPTED toàn stack tại G1.
+
+## 5. Khóa tập audit thật
+
+Ghi trước khi chạy audit chính thức số họ độc lập và đơn vị gold theo từng định dạng được đề xuất cho xử lý tự động. Dùng các mức 6 PDF text, 6 PDF scan, 4 HTML, 4 DOC/DOCX và 4 bảng/biểu của §2 để duyệt phân bổ. Ghi rõ mẫu thuộc tuning hoặc audit, nhóm có đủ mẫu, nhóm phải chuyển review/quarantine và quy tắc xử lý khi thiếu. Số liệu parser trên lô quan sát được giữ dưới trạng thái `OBSERVED` đến khi có gold độc lập. [Cách đo trên tệp thật](poc02-parser-ocr.md#chạy-trên-mẫu-thật)
+
+Theo NFR-05, freshness cần mốc thu thập, xác minh và index theo cùng phiên bản. Ledger của lô thủ công giữ thời điểm tải thực. Các mốc xác minh và index được đo khi những bước tương ứng thực thi. Báo số bản ghi đủ điều kiện và độ trễ theo nguồn, ghi SLO sau khi có quan sát đại diện.

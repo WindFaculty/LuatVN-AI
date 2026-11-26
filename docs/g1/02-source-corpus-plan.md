@@ -19,6 +19,8 @@ Theo G1-D01, ưu tiên SRC-01/03; các nguồn khác tiếp tục khảo sát th
 
 Registry mỗi source + action: source_id, source URL/owner/contact, policy URL/version/date, action (manual_download, automated_access, store, index, cite, redistribute), purpose, allowed data class, scope/region/type/time, rate/limits, expiry, evidence_ref, approval by owner, status PENDING_RIGHTS/APPROVED/DENIED/EXPIRED, revocation procedure. Một run cần mọi action sử dụng đã APPROVED; một action chưa duyệt không suy ra từ action khác. Không liên hệ nguồn thay chủ dự án nếu chưa được cấp quyền gửi.
 
+Chủ dự án đã mở phạm vi tải từng mẫu công khai SRC-01/03 và xử lý nội bộ. Mỗi lô dùng registry URL cụ thể, tách khỏi registry mặc định. Adapter kiểm hiệu lực quyền tại lúc thao tác và dừng nếu nội dung registry thay đổi giữa lượt chạy. Cutoff giữ cố định để phân loại ngày ban hành trong snapshot. [Cập nhật G1-D01](evidence/owner-decision-g1-d01-2026-11-26.md)
+
 ## 2. Taxonomy revision
 
 Giữ 9 nhóm pilot 0.1.0 làm lớp 1 trong khi chưa đo coverage: CIV, CRI, ADM, LAB, LND, BUS, TRA, EDU, ENV. Theo G1-D02, mở rộng sub-domain bằng catalog chính thức, không tự khẳng định 9 nhãn là đầy đủ hệ thống pháp luật. Đặc biệt rà soát hiến định/quản trị nhà nước, tố tụng, tài chính/ngân hàng/bảo hiểm, thuế, SHTT/công nghệ, y tế, an sinh, hôn nhân/gia đình, quốc phòng/an ninh, thương mại quốc tế và lĩnh vực chuyên ngành. Nếu chưa có nhóm phù hợp, gắn UNMAPPED và review để thêm hoặc đổi nhãn có migration, không ép vào nhóm gần nhất.
@@ -50,3 +52,9 @@ Manifest: corpus_id/version, catalog cutoff + recorded timestamp, source scopes 
 ## 5. Evidence chốt POC-01
 
 Cần source/action registry có căn cứ đã duyệt; manifest catalog và sample; taxonomy revision + mapping; coverage by strata có counts hoặc explicit unknown/gap (scope trọng yếu chưa đếm giữ G1 open); nguồn đối chiếu conflict; raw/normalized sizing; danh sách quyền/chuyên ngành còn thiếu. Owner chốt phạm vi thực tế và đánh giá đường đến toàn bộ taxonomy V1, không xóa domain vì nguồn thiếu.
+
+| Phạm vi | Điều kiện để ghi số đo | Hệ quả ở G1 |
+|---|---|---|
+| Lô thủ công SRC-01/03 | Tất cả URL trong danh sách mẫu có provenance, SHA-256 và quyền tương ứng. Đếm riêng trang, occurrences, họ và phiên bản. | Số đo của lô mẫu phục vụ kiểm thử. Coverage catalog vẫn `UNKNOWN`. |
+| Catalog trọng yếu SRC-01/03 | Có catalog hoặc export đủ quyền trong khoảng 01/01/2020 đến cutoff đã pin, xác nhận đầy đủ theo nguồn × năm × loại và phạm vi cấp/địa bàn. Đối chiếu hai nguồn theo family và version, giữ conflict riêng. | G1-AC-A còn mở nếu thiếu mẫu số ở phạm vi đã chốt. |
+| Phần lịch sử, địa phương, tư pháp và chuyên ngành chưa đủ catalog | Lập danh sách strata chưa kiểm, nguồn đối chứng khả dĩ, owner và gate xử lý. Dùng `UNKNOWN` kèm lý do ở strata thiếu. | Ghi rõ các khoảng trống trong G1-AC-B và trình chủ dự án chốt taxonomy. Chỉ công bố coverage trên phần đã đo. |

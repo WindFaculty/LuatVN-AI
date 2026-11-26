@@ -2,6 +2,8 @@
 
 Run `G1-POC01-20261126-DISCOVERY-01` thực hiện ngày 26/11/2026. Khảo sát dùng truy cập công khai giới hạn và đối chiếu các trang chính thức. Giả thuyết làm việc là SRC-01/03 có thể làm nguồn pilot cho văn bản trung ương và SRC-02 có thể cung cấp catalog đối chiếu khi xác nhận kênh. Kết quả hiện đủ để chọn ứng viên. Trạng thái quyền cho ingest vẫn là `PENDING_RIGHTS`. [Log quan sát HTTP](evidence/poc01-source-access-2026-11-26.json) · [Đặc tả quyền nguồn](../g0/05-data-engineering.md#danh-mục-nguồn-và-taxonomy).
 
+Kết quả trên ghi trạng thái lúc discovery. Sau đó, G1-D01 mở lô nội bộ SRC-01/03. Lô chính có 45 họ và mapping đủ 9 nhóm pilot. Catalog đối chứng vẫn chờ phạm vi và mẫu số. [Quyết định D01](evidence/owner-decision-g1-d01-2026-11-26.md) · [Kết quả lô thật](evidence/real-pilot-2026-11-26.md)
+
 | Nguồn | Quan sát và căn cứ | Việc cần xác nhận |
 |---|---|---|
 | SRC-01 Công báo điện tử | HTTP 200. Trang văn bản mẫu cung cấp PDF và DOC; một văn bản có thể nằm trên nhiều số Công báo. Công báo yêu cầu ghi nguồn khi phát hành lại. Hướng dẫn 02/2025/TT-VPCP mô tả ấn phẩm PDF ký số. [Văn bản mẫu 78/2025/NĐ-CP](https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-78-2025-nd-cp-44704/55991.htm) · [Thông tư](https://vanban.chinhphu.vn/?docid=215203&pageid=27160&typegroupid=6) · [Chân trang Công báo](https://congbao.chinhphu.vn/van-ban-dang-cong-bao/trang-1729.htm) | Chọn số Công báo và phần đính kèm đủ; xác nhận phương thức lấy mẫu, lưu bản gốc, lập chỉ mục, trích dẫn và phân phối. |

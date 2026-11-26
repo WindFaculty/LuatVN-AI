@@ -32,3 +32,9 @@ Holdout manifest chứa case/group/revision, snapshot, taxonomy, rubric, eligibi
 - Sau POC-11, khóa phân bổ thực và policy/feasibility trước model selection; khóa test độc lập khi đủ dữ liệu, trước khi lựa chọn model và nghiệm thu G5. Nếu input thiếu, ADR-06 vẫn PROPOSED và G1 ghi blocker, không gọi holdout frozen.
 
 G1 không nghiệm thu benchmark 1.000 hoặc chất lượng LLM. G5 phải chứng minh đủ 1.000+ verified cases, holdout độc lập và các ngưỡng AC; G7 phải chứng minh mọi domain có AI đạt. Theo G1-D03, chủ dự án tự review trước: chỉ L2 đạt required tier và có evidence được đếm sau kiểm đối với benchmark chính; phải ghi rõ các case cần L3 còn pending.
+
+## 5. Bắt đầu đo công sức review
+
+Dùng mục tiêu 27 ca ứng viên, có ba ca mỗi domain trên các group độc lập. Ghi số ca ứng viên, số group thực thu và kết quả theo required tier. Từ lô đầu đủ quyền, chọn các ca L2 tra cứu và hiệu lực để đo riêng thời gian chuẩn bị, active review, chờ và adjudication. Cập nhật thời gian cho phần còn lại theo phân tầng và báo kích thước mẫu cùng median/P90. Với nhóm L3 chờ chuyên gia, ghi tỷ lệ cần L3, giữ `PENDING_L3` và để thời gian L3 là `UNKNOWN` đến khi có đo.
+
+G1-AC-F cần log review người thật, số group đủ điều kiện, effort và quyết định khả thi của chủ dự án. Ghi riêng phần việc cần chuyên gia và mốc xử lý. Pilot phục vụ lập kế hoạch và rubric. Holdout độc lập dùng ở các pha sau phải khóa trước lựa chọn model.

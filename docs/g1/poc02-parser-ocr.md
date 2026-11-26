@@ -23,3 +23,9 @@ rtk proxy build/g1-venv/Scripts/python.exe -m pip install pypdf==6.19.0 reportla
 rtk proxy npm.cmd install --prefix build/g1-poc02 --save-exact --ignore-scripts --no-audit --no-fund tesseract.js@7.0.0 '@tesseract.js-data/vie@1.0.0'
 rtk proxy build/g1-venv/Scripts/python.exe -X utf8 experiments/g1/poc02/pilot.py --font 'C:/Windows/Fonts/arial.ttf' --ocr-dir build/g1-poc02 --output build/poc02-replay.json --run-id G1-POC02-REPLAY
 ```
+
+## Chạy trên mẫu thật
+
+[Probe nội bộ](../../experiments/g1/poc02/probe_real.py) nhận manifest intake và registry của lô. Nó kiểm quyền xử lý, kích thước và SHA-256 trước khi đọc file. pypdf trích text theo trang và chạy layout mode ở trang đầu. PDFium kết xuất một số trang ít text được chọn theo họ và Tesseract `vie` đọc ảnh cục bộ. DOCX được đọc qua XML. Chunks, ảnh, văn bản OCR và kết quả riêng từng tệp nằm ngoài Git.
+
+Cài thêm `pypdfium2==5.15.2` và `fonttools==4.69.1` trong venv PoC. Truyền hai đường dẫn `--intake`, registry `--registry`, thư mục OCR đã cài và một `--output-dir` dưới `build/g1/`. Probe ghi `measurements.json` và `chunks.jsonl`. Số mốc trích được và confidence OCR là quan sát kỹ thuật. Precision, recall, CER và chất lượng bảng cần đối chiếu gold thật theo [G1-03](03-parser-quality-plan.md#5-khóa-tập-audit-thật).

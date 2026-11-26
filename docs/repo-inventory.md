@@ -2,7 +2,7 @@
 
 | Repo hoạt động | Phạm vi |
 |---|---|
-| [WindFaculty/LuatVN-AI](https://github.com/WindFaculty/LuatVN-AI) | Monorepo private, tiếp nối lịch sử Git của LuatVN-AI-control |
+| [WindFaculty/LuatVN-AI](https://github.com/WindFaculty/LuatVN-AI) | Monorepo công khai (public), tiếp nối lịch sử Git của LuatVN-AI-control |
 | [WindFaculty/LuatVN-AI-demo](https://github.com/WindFaculty/LuatVN-AI-demo) | Cấu hình triển khai, dữ liệu mẫu và hướng dẫn sandbox |
 
 Ngày 26/11/2026, 15 repo đã archive được xóa khỏi GitHub sau khi chủ dự án xác nhận. Danh mục bên dưới ghi tên và SHA nguồn của các phần trước khi chuyển đổi. [Manifest](../workspace.manifest.json) · [ADR-07](adr/ADR-07-monorepo-and-demo.md) · [Actions](https://github.com/WindFaculty/LuatVN-AI/actions).

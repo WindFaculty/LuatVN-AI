@@ -1,0 +1,12 @@
+{
+  "revision": "g1-rights-pending-v1",
+  "sources": {
+    "SRC-01": {"name": "Công báo điện tử", "url": "https://congbao.chinhphu.vn/", "priority": "P0", "actions": {}},
+    "SRC-02": {"name": "CSDL quốc gia về pháp luật", "url": "https://vbpl.vn/", "priority": "P1", "actions": {}},
+    "SRC-03": {"name": "Hệ thống văn bản Chính phủ", "url": "https://vanban.chinhphu.vn/", "priority": "P0", "actions": {}},
+    "SRC-04": {"name": "Án lệ", "url": "https://anle.toaan.gov.vn/", "priority": "P1", "actions": {}},
+    "SRC-05": {"name": "Công bố bản án", "url": "https://congbobanan.toaan.gov.vn/", "priority": "P1", "actions": {}},
+    "SRC-06": {"name": "Nguồn bộ ngành, Quốc hội và địa phương cần định danh", "priority": "P1", "actions": {}},
+    "SRC-07": {"name": "Nguồn đối chiếu và đóng góp cần định danh", "priority": "P2", "actions": {}}
+  }
+}

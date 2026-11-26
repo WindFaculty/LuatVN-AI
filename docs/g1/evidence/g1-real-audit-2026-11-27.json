@@ -1,0 +1,566 @@
+{
+  "run_id": "G1-REAL-20261127-01",
+  "cutoff_utc": "2026-11-26T17:23:31.340392+00:00",
+  "cutoff_vn": "2026-11-27T00:23:31.340392+07:00",
+  "rights_decision_ref": "G1-D01-20261127-STATUTORY",
+  "catalog_snapshot": {
+    "src03_all_time_portal_total": 48101,
+    "src03_by_type_all_time": {
+      "Hiến pháp": 5,
+      "Sắc lệnh - Sắc luật": 917,
+      "Luật - Pháp lệnh": 865,
+      "Nghị định": 5248,
+      "Quyết định": 23608,
+      "Thông tư": 12151
+    },
+    "src03_laws_2020_to_cutoff_by_year": {
+      "2020": 18,
+      "2021": 3,
+      "2022": 14,
+      "2023": 16,
+      "2024": 31,
+      "2025": 89,
+      "2026": 24
+    },
+    "src03_decrees_2020_to_cutoff_by_year": {
+      "2020": 157,
+      "2021": 136,
+      "2022": 122,
+      "2023": 91,
+      "2024": 178,
+      "2025": 357,
+      "2026": 400
+    },
+    "src01_total_pages_reported": 2673,
+    "cross_source_dedup_denominator_2020_to_cutoff": "UNKNOWN_PENDING_G2_FULL_ENUMERATION"
+  },
+  "poc02_multi_format_audit": {
+    "manifest_sha256": "4b4f4f068b2e1145b8ad8999df03a93b960c6e0309a098b80ab0ab66388fdba4",
+    "accuracy_claim_status": "OBSERVED_CROSS_CHECKED_PENDING_HUMAN_GOLD",
+    "selection_summary": {
+      "total_unique_artifacts": 36,
+      "unique_families": 23,
+      "tuning_families": 7,
+      "audit_families": 16,
+      "counts_by_stratum": {
+        "doc_docx": 6,
+        "table_appendix": 6,
+        "pdf_scan": 8,
+        "pdf_text": 10,
+        "html": 6
+      },
+      "counts_by_domain": {
+        "CIV": 6,
+        "BUS": 5,
+        "ADM": 9,
+        "LND": 4,
+        "TRA": 2,
+        "CRI": 4,
+        "EDU": 2,
+        "ENV": 2,
+        "LAB": 2
+      },
+      "counts_by_split": {
+        "audit": 29,
+        "tuning": 7
+      },
+      "native_xlsx_observed_in_sample": 0,
+      "native_xlsx_note": "SRC-01/03 50-record sample contains 0 .xls/.xlsx URLs; table_appendix stratum uses 6 verified multi-table legal PDFs plus 1 DOCX (413/2026/ND-CP) and openpyxl technical fixture validation."
+    },
+    "tool_versions": {
+      "python": "3.12.10",
+      "pypdf": "6.19.0",
+      "pypdfium2": "5.15.2",
+      "pdfplumber": "0.11.11",
+      "beautifulsoup4": "4.15.0",
+      "lxml": "6.1.3",
+      "olefile": "0.47",
+      "openpyxl": "3.1.5",
+      "pillow": "13.0.0",
+      "tesseract_js_pkg": "7.0.0",
+      "tesseract_vie_model": "@tesseract.js-data/vie@1.0.0",
+      "tesseract_vie_model_sha256": "2284f610f262a1b19ec8df9f196b9ff6ce38ddb4a66329e998941df4b8961c8d"
+    },
+    "strata_summary": {
+      "pdf_text": {
+        "total": 10,
+        "tuning": 3,
+        "audit": 7,
+        "bytes_total": 7454425,
+        "pages_total": 484,
+        "plain_articles_total": 592,
+        "layout_articles_total": 588,
+        "tables_detected_total": 140,
+        "table_cells_detected_total": 1834,
+        "plain_seconds_p50": 1.428,
+        "plain_seconds_p90": 2.0201,
+        "layout_seconds_p50": 1.6532,
+        "layout_seconds_p90": 3.1784,
+        "plumber_seconds_p50": 2.8938
+      },
+      "pdf_scan": {
+        "total": 8,
+        "tuning": 1,
+        "audit": 7,
+        "bytes_total": 22644437,
+        "pages_total": 264,
+        "pages_ocrd": 16,
+        "raw_conf_mean": 91.19,
+        "prep_conf_mean": 91.19,
+        "raw_chars_total": 31992,
+        "prep_chars_total": 31993,
+        "raw_articles_total": 14,
+        "prep_articles_total": 13,
+        "artifacts_routed_to_review": 1,
+        "ocr_batch_wall_seconds": 52.419,
+        "ocr_seconds_per_image": 1.638
+      },
+      "html": {
+        "total": 6,
+        "tuning": 0,
+        "audit": 6,
+        "bytes_total": 845683,
+        "boilerplate_reduction_mean": 0.5259,
+        "metadata_fields_mean": 0.83,
+        "dom_seconds_p50": 0.0019
+      },
+      "doc_docx": {
+        "total": 6,
+        "tuning": 0,
+        "audit": 6,
+        "bytes_total": 6387539,
+        "docx_observed": 1,
+        "doc_ole2_inspected": 5,
+        "doc_routed_converter_or_review": 5
+      },
+      "table_appendix": {
+        "total": 6,
+        "tuning": 3,
+        "audit": 3,
+        "bytes_total": 4281228,
+        "pages_total": 384,
+        "plain_articles_total": 517,
+        "layout_articles_total": 515,
+        "tables_detected_total": 360,
+        "table_cells_detected_total": 9153,
+        "plain_seconds_p50": 1.3252,
+        "plain_seconds_p90": 1.5089,
+        "layout_seconds_p50": 1.5817,
+        "layout_seconds_p90": 4.3994,
+        "plumber_seconds_p50": 3.8217
+      }
+    },
+    "cross_format_parity_413_2026": {
+      "document_number": "413/2026/NĐ-CP",
+      "docx_articles": 31,
+      "pdf_articles": 31,
+      "prefix_chars_compared": 2500,
+      "edit_distance": 181,
+      "note": "Differences include PDF page headers/footers and line wrapping vs DOCX body paragraphs; used as structural parity check, not human gold."
+    },
+    "quarantine_and_security_tests": {
+      "synthetic_xlsx_openpyxl": {
+        "status": "PASS",
+        "sheets": [
+          "Bieu_thue_mau"
+        ],
+        "rows": 3,
+        "cols": 6,
+        "formula_preserved": true
+      },
+      "malformed_pdf_quarantine": {
+        "status": "PASS",
+        "caught": "PdfStreamError"
+      },
+      "malformed_docx_quarantine": {
+        "status": "PASS",
+        "caught": "BadZipFile"
+      },
+      "html_script_strip_and_rights_guard": {
+        "status": "PASS",
+        "script_stripped": true,
+        "ingest_outcome_status": "QUARANTINED"
+      },
+      "oversize_rights_guard": {
+        "status": "PASS",
+        "reason": "OUTSIDE_APPROVED_SCOPE"
+      },
+      "real_date_anomaly_59_2020_qh14": {
+        "status": "PASS",
+        "observed_dates": {
+          "SRC-01": "01/01/1900",
+          "SRC-03": "01-01-2021"
+        },
+        "legal_status_verified": [
+          false,
+          false
+        ]
+      }
+    },
+    "chunks_total_full_corpus": 4436
+  },
+  "graph_gold_candidates": {
+    "total_records": 187,
+    "by_review_state": {
+      "candidate": 186,
+      "conflict": 1
+    },
+    "by_domain": {
+      "ADM": 21,
+      "BUS": 19,
+      "CIV": 23,
+      "CRI": 23,
+      "EDU": 20,
+      "ENV": 20,
+      "LAB": 21,
+      "LND": 20,
+      "TRA": 20
+    },
+    "by_layer_unit_type": {
+      "normative:edge:applies_to": 9,
+      "normative:edge:conditioned_by": 9,
+      "normative:edge:excepted_by": 9,
+      "normative:edge:grants": 9,
+      "normative:edge:imposes": 9,
+      "normative:node:Condition": 9,
+      "normative:node:Exception": 9,
+      "normative:node:Obligation": 9,
+      "normative:node:Right": 9,
+      "normative:node:Subject": 9,
+      "structural:edge:contains": 18,
+      "structural:edge:guides": 5,
+      "structural:edge:lineage": 2,
+      "structural:edge:locality": 18,
+      "structural:edge:modifies": 5,
+      "structural:edge:references": 11,
+      "structural:edge:repeals": 1,
+      "structural:node:document": 18,
+      "structural:node:jurisdiction": 1,
+      "structural:node:provision": 18
+    },
+    "structural_corrects_observed": 0,
+    "structural_corrects_note": "0 real đính chính (corrects) texts among the 18 pilot families; deferred to G2/G3 sampling."
+  },
+  "storage_sizing_pg18": {
+    "server_version": "18.6",
+    "hardware_verified": {
+      "os": "Windows 11 (10.0.26300)",
+      "architecture": "AMD64",
+      "cpu_logical_cores": 24,
+      "disk_free_gib": 91.98
+    },
+    "object_storage_observed": {
+      "unique_families": 45,
+      "unique_blobs": 70,
+      "total_occurrences_bytes": 186754814,
+      "dedup_unique_blob_bytes": 173803902,
+      "blob_bytes_mean": 2482912.9,
+      "blob_bytes_p50": 1009447.0,
+      "blob_bytes_p90": 6176759.0,
+      "by_format": {
+        "doc": {
+          "count": 5,
+          "bytes": 6307840,
+          "mean": 1261568.0,
+          "p50": 1081344.0,
+          "p90": 2097152.0
+        },
+        "docx": {
+          "count": 1,
+          "bytes": 79699,
+          "mean": 79699.0,
+          "p50": 79699.0,
+          "p90": 79699.0
+        },
+        "pdf": {
+          "count": 64,
+          "bytes": 167416363,
+          "mean": 2615880.7,
+          "p50": 1009447.0,
+          "p90": 6412755.0
+        }
+      }
+    },
+    "relational_and_fts_observed": {
+      "chunks": 4436,
+      "normalized_content_bytes": 4675855,
+      "table_heap_bytes": 5931008,
+      "btree_index_bytes": 483328,
+      "fts_gin_index_bytes": 1425408,
+      "fts_build_seconds": 0.51,
+      "fts_sample_query_hits": 0,
+      "fts_sample_query_ms": 40.46,
+      "load_and_btree_seconds": 0.138,
+      "backup_dump_bytes": 865767,
+      "backup_seconds": 0.371,
+      "restore_seconds": 0.524,
+      "restore_integrity": "PASS"
+    },
+    "graph_tables_observed": {
+      "nodes": 82,
+      "edges": 105,
+      "total_relation_and_index_bytes": 172032,
+      "bounded_2hop_reachable_pairs": 442,
+      "bounded_2hop_cte_ms": 40.54
+    },
+    "vector_payload_lower_bound": {
+      "chunks": 4436,
+      "ann_overhead_note": "Payload raw math only; HNSW/IVFFlat index overhead & filter RAM deferred to G2 POC-03.",
+      "matrix": {
+        "dim_768": {
+          "fp32_bytes": 13627392,
+          "fp16_bytes": 6813696,
+          "int8_bytes": 3406848
+        },
+        "dim_1024": {
+          "fp32_bytes": 18169856,
+          "fp16_bytes": 9084928,
+          "int8_bytes": 4542464
+        },
+        "dim_1536": {
+          "fp32_bytes": 27254784,
+          "fp16_bytes": 13627392,
+          "int8_bytes": 6813696
+        }
+      }
+    },
+    "corpus_projections_from_observed_baseline": {
+      "low_core_acts_2020_to_2026_estimate": {
+        "assumed_unique_families": 4000,
+        "revision_multiplier": 1.15,
+        "estimated_chunks": 453457,
+        "raw_object_gib": 16.55,
+        "relational_and_fts_gib": 0.6,
+        "vector_1024_fp16_with_hnsw_estimate_gib": 1.17,
+        "graph_tables_gib": 0.043,
+        "total_with_backup_and_headroom_gib": 43.74
+      },
+      "base_src03_recent_plus_multi_agency_estimate": {
+        "assumed_unique_families": 18000,
+        "revision_multiplier": 1.3,
+        "estimated_chunks": 2306720,
+        "raw_object_gib": 84.17,
+        "relational_and_fts_gib": 3.4,
+        "vector_1024_fp16_with_hnsw_estimate_gib": 5.94,
+        "graph_tables_gib": 0.192,
+        "total_with_backup_and_headroom_gib": 354.98
+      },
+      "high_full_national_48k_plus_multi_source": {
+        "assumed_unique_families": 48101,
+        "revision_multiplier": 1.5,
+        "estimated_chunks": 7112534,
+        "raw_object_gib": 259.53,
+        "relational_and_fts_gib": 11.52,
+        "vector_1024_fp16_with_hnsw_estimate_gib": 18.31,
+        "graph_tables_gib": 0.514,
+        "total_with_backup_and_headroom_gib": 1217.61
+      }
+    }
+  },
+  "poc11_human_review": {
+    "cases": 27,
+    "groups": 27,
+    "groups_by_domain": {
+      "CIV": 3,
+      "CRI": 3,
+      "ADM": 3,
+      "LAB": 3,
+      "LND": 3,
+      "BUS": 3,
+      "TRA": 3,
+      "EDU": 3,
+      "ENV": 3
+    },
+    "states": {
+      "PENDING_L2": 18,
+      "PENDING_L3": 9
+    },
+    "cases_by_stratum": [
+      {
+        "domain": "ADM",
+        "task": "lookup",
+        "risk": "low",
+        "count": 1
+      },
+      {
+        "domain": "ADM",
+        "task": "risk",
+        "risk": "high",
+        "count": 1
+      },
+      {
+        "domain": "ADM",
+        "task": "temporal",
+        "risk": "medium",
+        "count": 1
+      },
+      {
+        "domain": "BUS",
+        "task": "lookup",
+        "risk": "low",
+        "count": 1
+      },
+      {
+        "domain": "BUS",
+        "task": "risk",
+        "risk": "high",
+        "count": 1
+      },
+      {
+        "domain": "BUS",
+        "task": "temporal",
+        "risk": "medium",
+        "count": 1
+      },
+      {
+        "domain": "CIV",
+        "task": "lookup",
+        "risk": "low",
+        "count": 1
+      },
+      {
+        "domain": "CIV",
+        "task": "risk",
+        "risk": "high",
+        "count": 1
+      },
+      {
+        "domain": "CIV",
+        "task": "temporal",
+        "risk": "medium",
+        "count": 1
+      },
+      {
+        "domain": "CRI",
+        "task": "lookup",
+        "risk": "low",
+        "count": 1
+      },
+      {
+        "domain": "CRI",
+        "task": "risk",
+        "risk": "high",
+        "count": 1
+      },
+      {
+        "domain": "CRI",
+        "task": "temporal",
+        "risk": "medium",
+        "count": 1
+      },
+      {
+        "domain": "EDU",
+        "task": "lookup",
+        "risk": "low",
+        "count": 1
+      },
+      {
+        "domain": "EDU",
+        "task": "risk",
+        "risk": "high",
+        "count": 1
+      },
+      {
+        "domain": "EDU",
+        "task": "temporal",
+        "risk": "medium",
+        "count": 1
+      },
+      {
+        "domain": "ENV",
+        "task": "lookup",
+        "risk": "low",
+        "count": 1
+      },
+      {
+        "domain": "ENV",
+        "task": "risk",
+        "risk": "high",
+        "count": 1
+      },
+      {
+        "domain": "ENV",
+        "task": "temporal",
+        "risk": "medium",
+        "count": 1
+      },
+      {
+        "domain": "LAB",
+        "task": "lookup",
+        "risk": "low",
+        "count": 1
+      },
+      {
+        "domain": "LAB",
+        "task": "risk",
+        "risk": "high",
+        "count": 1
+      },
+      {
+        "domain": "LAB",
+        "task": "temporal",
+        "risk": "medium",
+        "count": 1
+      },
+      {
+        "domain": "LND",
+        "task": "lookup",
+        "risk": "low",
+        "count": 1
+      },
+      {
+        "domain": "LND",
+        "task": "risk",
+        "risk": "high",
+        "count": 1
+      },
+      {
+        "domain": "LND",
+        "task": "temporal",
+        "risk": "medium",
+        "count": 1
+      },
+      {
+        "domain": "TRA",
+        "task": "lookup",
+        "risk": "low",
+        "count": 1
+      },
+      {
+        "domain": "TRA",
+        "task": "risk",
+        "risk": "high",
+        "count": 1
+      },
+      {
+        "domain": "TRA",
+        "task": "temporal",
+        "risk": "medium",
+        "count": 1
+      }
+    ],
+    "required_l3": 9,
+    "required_l3_ratio": 0.3333333333333333,
+    "pending_ratio": 1.0,
+    "effort": {
+      "L2": {
+        "n": 0,
+        "active_mean": null,
+        "active_median": null,
+        "active_p90": null,
+        "reviews_per_active_hour": null,
+        "wait_minutes": null,
+        "adjudication_minutes": null
+      },
+      "L3": {
+        "n": 0,
+        "active_mean": null,
+        "active_median": null,
+        "active_p90": null,
+        "reviews_per_active_hour": null,
+        "wait_minutes": null,
+        "adjudication_minutes": null
+      }
+    }
+  }
+}

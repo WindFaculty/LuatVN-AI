@@ -54,3 +54,9 @@ Projection:
 - growth & time: bytes/day, artifacts/day, reviewer hours theo throughput; report P50/P90 và khoảng uncertainty, chi phí thực bằng metered usage ở G6, không dùng giá chưa xác minh.
 
 Máy thử nghiệm reference của owner: i7-14650HX, RTX 5060 Laptop 8GB, RAM 32GB, Windows 11 (xác nhận cấu hình thực trước pin). Theo G1-D05 dùng laptop hiện tại, Docker và database local tạm/cô lập; ưu tiên công cụ miễn phí, không dùng API trả phí mặc định hoặc cloud trả phí chưa duyệt. Model LLM vẫn 100% API theo baseline ở pha phù hợp; không cần gọi API LLM cho G1 mặc định. Ghi Docker image/tag/digest, resource limits, free disk, runtime, version và lệnh replay; không coi cấu hình reference là số đo thực. 
+
+## 5. Bằng chứng graph và sizing cần bàn giao
+
+Hồ sơ G1 cần danh sách gold theo từng họ, node/edge type, domain, unit/mẫu số và tham chiếu đoạn gốc. Mỗi type phải ghi bao nhiêu họ độc lập được dùng và lượng gold thực tế, cùng cách xử lý loại còn thiếu. Chủ dự án duyệt scope và rubric trước khi chốt G1-AC-D. G3 chạy pipeline và tính precision/recall trên manifest đã khóa.
+
+G1 sizing dùng byte tệp gốc đã khử trùng, byte text/chunk thực đo và dung lượng relational/object của lô. Dự báo theo strata ghi rõ giả định về tăng trưởng, retention và backup. Các cỡ index search, vector và graph được cập nhật từ những PoC tương ứng. Khi thiếu mẫu số catalog, dự báo toàn corpus giữ ở trạng thái chờ số liệu.

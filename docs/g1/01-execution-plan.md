@@ -2,6 +2,8 @@
 
 Phiên bản 1.0 · Quyết định G1-D01–06 đã được chủ dự án duyệt ngày 26/11/2026 · Owner: Trần Xuân Khoa · G1 IN_PROGRESS (chưa nghiệm thu)
 
+Phạm vi G1-D01 đã được cập nhật sau khi duyệt v1.0. Xem phạm vi lô thật và trạng thái hiện hành ở [quyết định D01](evidence/owner-decision-g1-d01-2026-11-26.md) và [báo cáo thực thi](execution-status-2026-11-26.md).
+
 ## 1. Căn cứ và phạm vi
 
 Baseline hiện hành là [v1.1](../../Luat_Viet_Nam_AI_Requirements_Baseline_v1.1.md), [ADR-07](../adr/ADR-07-monorepo-and-demo.md) và hồ sơ G0 v0.2.1 đã đóng. Giữ 25 hash của G0; không sửa tài liệu đã nghiệm thu để phản ánh kết quả mới. Ghi bằng chứng, ADR và phụ lục ở G1. Một Git root sản phẩm, không tái tạo repo cũ. Repo demo không chứa corpus thật hay gold holdout.
