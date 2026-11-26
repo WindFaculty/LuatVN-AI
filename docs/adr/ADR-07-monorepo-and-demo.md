@@ -10,6 +10,6 @@
 
 1. `WindFaculty/LuatVN-AI` là monorepo private, tiếp nối lịch sử Git của Control. `apps/` chứa Web và Studio, `services/` chứa bảy backend V1 và `packages/contracts/` là nguồn hợp đồng dùng chung. Manifest ghi đường dẫn và commit nhập. CI ở gốc kiểm tính toàn vẹn hồ sơ, contract và các component. Khi có ứng dụng chạy được, đưa test tích hợp và build image vào workflow chung.
 2. `WindFaculty/LuatVN-AI-demo` quản lý cấu hình sandbox, hướng dẫn và dữ liệu mẫu. Demo sử dụng artifact của một commit sản phẩm và ghim theo image digest. Mã Web, Studio và backend được bảo trì trong monorepo. Mức truy cập vào demo được quản lý qua môi trường vận hành. [Thiết kế cô lập ADR-05](../g0/adr/ADR-05-studio-sandbox.md).
-3. Phần LATER đưa vào backlog. Các repo cũ sau khi kiểm đủ mã, hồ sơ và kết quả kiểm tra chuyển đổi được lưu trữ trên GitHub cùng lịch sử commit. Bản yêu cầu v1.1 ghi thay đổi. SHA-256 của baseline v1.0 và hồ sơ G0 v0.2.1 dùng kiểm mốc nghiệm thu gốc.
+3. Phần LATER đưa vào backlog. Sau khi kiểm đủ mã và hồ sơ chuyển đổi, các repo cũ được archive. Chủ dự án sau đó xác nhận xóa các bản cũ trên máy và trên GitHub. [Kiểm kê tên và SHA nguồn](../repo-inventory.md). Bản yêu cầu v1.1 ghi thay đổi. SHA-256 của baseline v1.0 và hồ sơ G0 v0.2.1 dùng kiểm mốc nghiệm thu gốc.
 
 Các tác vụ G1 tiếp tục dựa trên [bằng chứng đã có](../g1/README.md). Xem xét tách thêm repo khi trách nhiệm sở hữu, quyền truy cập mã hoặc lịch phát hành độc lập tạo yêu cầu cụ thể. [Phụ lục kiến trúc và truy vết](../architecture/current-repository-layout.md).
