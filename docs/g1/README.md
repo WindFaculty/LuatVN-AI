@@ -11,3 +11,18 @@
 | Monorepo và CI | Mã V1, contracts và bằng chứng G1 nằm trong monorepo. Repo demo quản lý sandbox theo ADR-07. | Theo dõi kết quả workflow hợp nhất trên commit chuyển đổi. [ADR-07](../adr/ADR-07-monorepo-and-demo.md) · [Kiểm kê](../repo-inventory.md) |
 
 Ưu tiên xác nhận phạm vi pilot thủ công với `SRC-01` hoặc `SRC-03`. Khi có xác nhận, tạo snapshot mẫu, chạy parser/OCR và đo review trên cùng phạm vi có provenance. Giữ các phép đo tổng hợp trong tập fixture. ADR-02/03/06 tiếp tục ở trạng thái đề xuất cho đến khi có bằng chứng tương ứng. [Sổ quyết định](../g0/registers.md#adr).
+
+## Kế hoạch thực thi G1 — v0.1-draft
+
+Bổ sung dự thảo để chủ dự án duyệt và giao task cho AI Coding Agent theo Baseline v1.1/ADR-07. Các trang dưới đây là kế hoạch, không thay kết quả pilot đã lưu và không xác nhận G1 PASS.
+
+| Hồ sơ | Mục đích |
+|---|---|
+| [G1-01](01-execution-plan.md) | Workstream, timeline, dependency và quy tắc thực thi |
+| [G1-02](02-source-corpus-plan.md) | Quyền nguồn, taxonomy, corpus và coverage |
+| [G1-03](03-parser-quality-plan.md) | Gold sample, parser/OCR và quality gates |
+| [G1-04](04-data-graph-storage-plan.md) | Temporal/graph golden set, storage & sizing |
+| [G1-05](05-review-evaluation-plan.md) | Human review pilot, benchmark và holdout feasibility |
+| [G1-06](06-backlog-gate.md) | Backlog, acceptance, quyết định mở và handoff G2 |
+
+**Việc tiếp theo:** chủ dự án duyệt G1-D01–06 trong G1-06. Sau đó thực hiện task theo dependencies và chứng cứ quyền thực tế. Giữ nguyên hồ sơ G0 đã hash.
