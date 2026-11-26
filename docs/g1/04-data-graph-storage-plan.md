@@ -1,6 +1,6 @@
 # G1-04 — Temporal model, Knowledge Graph và storage sizing
 
-Phiên bản 0.1-draft · REQ-TEMP-01–03, REQ-GRAPH-01–02, REQ-ARCH-03, REQ-DATA-07 · AC-12; chuẩn bị TST-04/05, POC-04/05 G3, ADR-02
+Phiên bản 1.0 · Quyết định G1-D01–06 đã được chủ dự án duyệt ngày 26/11/2026 · REQ-TEMP-01–03, REQ-GRAPH-01–02, REQ-ARCH-03, REQ-DATA-07 · AC-12; chuẩn bị TST-04/05, POC-04/05 G3, ADR-02
 
 ## 1. Mô hình nguồn sự thật
 
@@ -22,14 +22,14 @@ Chạy fixture G0 trên database tạm và thêm case missing/ambiguous provenan
 
 ## 2. Graph hai tầng
 
-| Tầng | Gold scope proposed | Đo trong G3 |
+| Tầng | Gold scope đã duyệt (G1-D02) | Đo trong G3 |
 |---|---|---|
 | Structural/citation | 18 families mục tiêu (2/domain) từ corpus đủ quyền; gồm 6 edge types modifies, replaces, repeals, guides, corrects, references, hierarchy/lineage và locality | Precision và coverage từng edge/node type trên gold audit; tỷ lệ processed corpus riêng |
 | Deontic/normative | Cùng các family có quy tắc điều kiện/ngoại lệ đủ evidence, bổ sung family nếu thiếu. Subject, Right, Obligation, Condition, Exception; applies_to, grants, imposes, conditioned_by, excepted_by | Precision, coverage từng node/edge, evidence validity, temporal/scope constraints, multi-hop ablation |
 
 Gold assertion gồm stable id, source provision version, source/target/type, canonical labels, exact quote/locator, valid/recorded ranges, scope, review status, reviewer/evidence ref, ambiguity/conflict. Gold tạo hoặc kiểm riêng bởi human; cạnh suy đoán tuyệt đối không làm căn cứ.
 
-Quy tắc mẫu: báo cho mỗi type/domain số gold units độc lập, số predicted, TP/FP/FN và eligible corpus count. Precision = TP/predicted; coverage (recall) = TP/gold. Không coi edge count lớn là graph sâu. Mục tiêu proposed cho G3: structural precision ≥98%, coverage ≥90%; deontic precision ≥95%, coverage ≥85%; 100% verified assertions có version/anchor/time/scope hợp lệ. Báo các ngưỡng theo type, sample adequacy và confidence; nếu thiếu gold không PASS. Đây không phải sửa AC-12: owner khóa phạm vi, mẫu số và ngưỡng sau khảo sát, trước evaluation của graph; pipeline structural trên mọi corpus được nhận có quyền, deontic đủ ontology/pipeline sâu trên tập lõi được duyệt, không xóa domain để chạy kịp.
+Quy tắc mẫu: báo cho mỗi type/domain số gold units độc lập, số predicted, TP/FP/FN và eligible corpus count. Precision = TP/predicted; coverage (recall) = TP/gold. Không coi edge count lớn là graph sâu. Ngưỡng đã duyệt theo G1-D04 cho PoC graph ở G3: structural precision ≥98%, coverage ≥90%; deontic precision ≥95%, coverage ≥85%; 100% verified assertions có version/anchor/time/scope hợp lệ. Báo các ngưỡng theo type, sample adequacy và confidence; nếu thiếu gold không PASS. Đây không phải sửa AC-12: trước audit, khóa manifest/revision/hash gồm gold assertions, family/group split, scope/type/domain, unit/mẫu số, rubric, ngưỡng số đã duyệt, version/schema/config và review criteria; thay đổi sau khi xem kết quả cần change control và audit độc lập mới; pipeline structural trên mọi corpus được nhận có quyền, deontic đủ ontology/pipeline sâu trên tập lõi được duyệt, không xóa domain để chạy kịp.
 
 ## 3. So sánh storage theo 5 năng lực logic
 
@@ -53,4 +53,4 @@ Projection:
 - total = raw + normalized/relational + keyword + vector + graph + backup + logs; nếu dùng chung engine kiểm không double-count, thêm headroom có lý do.
 - growth & time: bytes/day, artifacts/day, reviewer hours theo throughput; report P50/P90 và khoảng uncertainty, chi phí thực bằng metered usage ở G6, không dùng giá chưa xác minh.
 
-Máy thử nghiệm reference của owner: i7-14650HX, RTX 5060 Laptop 8GB, RAM 32GB, Windows 11 (xác nhận cấu hình thực trước pin). Local PoC ưu tiên đủ tài nguyên trong môi trường cô lập; model LLM vẫn 100% API theo baseline và không cần dùng API cho G1 mặc định. 
+Máy thử nghiệm reference của owner: i7-14650HX, RTX 5060 Laptop 8GB, RAM 32GB, Windows 11 (xác nhận cấu hình thực trước pin). Theo G1-D05 dùng laptop hiện tại, Docker và database local tạm/cô lập; ưu tiên công cụ miễn phí, không dùng API trả phí mặc định hoặc cloud trả phí chưa duyệt. Model LLM vẫn 100% API theo baseline ở pha phù hợp; không cần gọi API LLM cho G1 mặc định. Ghi Docker image/tag/digest, resource limits, free disk, runtime, version và lệnh replay; không coi cấu hình reference là số đo thực. 

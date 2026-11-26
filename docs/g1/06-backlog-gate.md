@@ -1,6 +1,6 @@
 # G1-06 — Backlog thực thi, acceptance gate và handoff
 
-Phiên bản 0.1-draft · 26/11/2026 · Quyết định/threshold/scope trong bộ này chờ chủ dự án duyệt
+Phiên bản 1.0 · Quyết định G1-D01–06 đã được chủ dự án duyệt ngày 26/11/2026 · 6/6 quyết định đã duyệt; G1 gate chưa nghiệm thu
 
 ## 1. Backlog cho Coding Agent
 
@@ -20,7 +20,7 @@ Phiên bản 0.1-draft · 26/11/2026 · Quyết định/threshold/scope trong b�
 | G1-T12 | Feasibility matrix/effort, split/policy and holdout plan; ADR-06 proposal | evaluation, docs/g1 | T11 | REQ-EVAL-01–03, AC-10/11 |
 | G1-T13 | Aggregate evidence, unresolved ADR slices, roadmap/cost risk and acceptance report | docs/g1, docs/adr | T01–12 | TST-02, G1, G2 handoff |
 
-Tasks engineering chưa thực hiện trong đợt viết plan ghi PLANNED; các runs đã có dẫn link riêng, không overwrite evidence cũ. T02/T07/T08 có thể chạy synthetic trước khi quyền nguồn thật; T03/T05/T06 real và T11 human bị chặn cho đến quyền/reviewer. Owner review diff/verification, ký merge và gate. Không tạo repo mới.
+Tasks engineering chưa thực hiện trong đợt viết plan ghi PLANNED; các runs đã có dẫn link riêng, không overwrite evidence cũ. T02/T07/T08 có thể chạy synthetic trước khi quyền nguồn thật; T03/T05/T06 real và T11 human bị chặn cho đến khi có quyền nguồn và dữ liệu hợp lệ; reviewer L2 đã xác định là chủ dự án, review thực vẫn chưa chạy. Owner review diff/verification, ký merge và gate. Không tạo repo mới.
 
 ## 2. Gate G1
 
@@ -28,28 +28,39 @@ Tasks engineering chưa thực hiện trong đợt viết plan ghi PLANNED; các
 |---|---|---|
 | G1-AC-A | POC-01 rights per action confirmed cho in-scope pilot và kế hoạch nguồn trọng yếu; catalog/scope có denominator & gap rõ | BLOCKED — pending rights và denominator |
 | G1-AC-B | Taxonomy version có mapping/source evidence, strata và plan phủ toàn bộ lĩnh vực; owner chốt | IN_PROGRESS — 9 nhóm pilot, chưa official |
-| G1-AC-C | POC-02 real authorized gold samples, metrics by format/ngưỡng approved, failure policy + artifact/replay/quarantine tests | IN_PROGRESS — synthetic only |
-| G1-AC-D | Data model/temporal migration candidate, integrity tests, graph gold scope/type denominators approved | IN_PROGRESS — fixture G0, thiếu gold & sizing thật |
+| G1-AC-C | POC-02 real authorized gold samples, metrics by format/ngưỡng đã duyệt và audit manifest đã khóa, failure policy + artifact/replay/quarantine tests | IN_PROGRESS — synthetic only |
+| G1-AC-D | Data model/temporal migration candidate, integrity tests, graph gold scope/type denominators được khóa trước audit, ngưỡng đã duyệt | IN_PROGRESS — fixture G0, thiếu gold & sizing thật |
 | G1-AC-E | Sizing artifacts/corpus/resources thực, storage trade-offs và ADR evidence theo từng phần | NOT_RUN — chưa đo corpus thật |
 | G1-AC-F | POC-11 người thật review, counts L2/L3/pending, effort và feasibility, ADR-06 policy đủ căn cứ | BLOCKED — pilot verified L2/L3 0/0 |
 | G1-AC-G | Gate report tổng hợp, trace tests/ADRs, reproduction và owner sign-off; tình trạng CI ghi trung thực | NOT_RUN — chưa có gate report |
 
 Không đổi AC V1. G1 PASS cần tất cả check của G1 có evidence đạt, không có blocker về scope bắt buộc chưa được xử lý, có quyết định chủ dự án. TST-02 phần pipeline sẽ tiếp tục kiểm hồi quy ở các pha; TST-03–08 chỉ được ghi PASS khi có evidence đúng pha. Các phần ADR-02/03 chưa tới PoC tương ứng giữ PROPOSED; ADR-06 khóa policy đủ căn cứ trước lựa chọn model. Hosted CI đang bị chặn: log local replay là evidence riêng, không coi CI PASS hoặc bypass security. Nếu formal gate cần hosted CI mà không có run thì ghi BLOCKED và trình owner phương án kiểm tương đương, không tự accept.
 
-## 3. Quyết định chủ dự án (chưa duyệt)
+## 3. Quyết định chủ dự án đã duyệt
 
-| ID | Nội dung | Đề xuất mặc định để duyệt | Nếu không duyệt |
+| ID | Nội dung | Quyết định đã duyệt (ACCEPTED) | Điều kiện còn mở / guardrail |
 |---|---|---|---|
-| G1-D01 | Phạm vi và phương thức pilot | SRC-01/03, manual + nội bộ sau xác minh action riêng; song song xác minh SRC-02/04/05/06; chưa crawl hàng loạt | Chọn nguồn khác hợp pháp hoặc synthetic; real evidence chờ |
-| G1-D02 | Taxonomy và sizing mẫu | 9 nhóm tầng 1 pilot → subdomains/mapping, review UNMAPPED; mục tiêu 45 families/36 artifacts/18 graph families/27 review cases | Thay phân bổ theo catalog và năng lực, không giảm scope V1 tự động |
-| G1-D03 | Review capacity | Owner làm L2; đo 27-case pilot, phân tầng L3 thật, tìm reviewer phù hợp trước G5 nếu required | L3 pending, không được tính; cập nhật blocker/lịch |
-| G1-D04 | Ngưỡng parser & graph | Candidate tại G1-03 và G1-04; khóa scope/metric trước audit, không điều chỉnh sau khi thấy kết quả chỉ để pass | Owner chọn phương án trước run chính và ghi lý do |
-| G1-D05 | Môi trường/budget | Local PoC, disposable DB/object, ưu tiên zero paid services, no API data egress mặc định. Confirm giờ/tuần và ngân sách cho real-source/expert/model PoC sau | Ghi giới hạn, tách chi phí; xin duyệt trước chi tiêu/external effects |
-| G1-D06 | Split/cell policy | Group-based, 50% holdout candidate, sàn G0 giữ proposed cho tới POC-11/ADR-06 | Tái phân bổ trước model selection dựa trên evidence, AC giữ nguyên |
+| G1-D01 | Nguồn ban đầu | Ưu tiên SRC-01/03, xác minh từng quyền khai thác trước khi tải và xử lý dữ liệu | Quyền từng action vẫn cần evidence; chưa crawl hàng loạt nếu chưa được phép |
+| G1-D02 | Taxonomy và quy mô pilot | Giữ 9 nhóm pilot, mở rộng sub-domain theo catalog; 45 families / 36 artifacts / 18 graph families / 27 review cases | Chưa phải taxonomy chính thức hay coverage toàn quốc. Báo thiếu mẫu, không tự giảm scope V1 |
+| G1-D03 | Kiểm chứng pháp lý | Chủ dự án tự review L2, đo công sức và giữ case cần L3 ở PENDING_L3 cho đến khi có chuyên gia | Không tự gán L3, không đếm case thiếu required tier; blocker/lịch vẫn phải quản lý |
+| G1-D04 | Ngưỡng parser & graph | Dùng các ngưỡng pilot trong [G1-03](03-parser-quality-plan.md) và [G1-04](04-data-graph-storage-plan.md), khóa trước audit | Manifest/rubric/scope/config phải pin trước audit; không chỉnh ngưỡng khi thấy kết quả để PASS |
+| G1-D05 | Môi trường và ngân sách | Laptop hiện tại + Docker + database local; 30–40 giờ/tuần; ưu tiên miễn phí, không dùng API trả phí mặc định trong G1 | Xin duyệt trước phát sinh phí/external effects, không egress dữ liệu nếu chưa được phép |
+| G1-D06 | Benchmark độc lập | Dự kiến 50% holdout theo group; khóa phân bổ thực sau POC-11 | Sàn/metric/cell policy và phân bổ thực qua ADR-06 trước model selection; không dùng holdout để tuning; AC giữ nguyên |
 
-D01 là phê duyệt phạm vi nội bộ, không thay bằng chứng quyền của bên cung cấp nguồn. D02 là pilot, không phải taxonomy cuối cùng hay corpus release. D03 không sửa DEC-04 hay gán owner là L3. D04–06 là giả định đề xuất; chưa ghi ACCEPTED.
+**Phê duyệt:** Trần Xuân Khoa, 26/11/2026, xác nhận trong cuộc trao đổi G1; 6/6 ACCEPTED, không có yêu cầu bổ sung. Kế hoạch G1 cập nhật từ v0.1-draft lên v1.0. D01 là phê duyệt phạm vi nội bộ, không thay bằng chứng quyền của bên cung cấp nguồn. D02 là pilot, không phải taxonomy cuối cùng hay corpus release. D03 không sửa DEC-04 hay gán owner là L3. D04 duyệt ngưỡng số nhưng audit manifest chưa khóa; D05 duyệt môi trường và ưu tiên ngân sách, không cấp phép chi tiêu; D06 duyệt tỷ lệ kế hoạch, không xác nhận holdout manifest đã freeze. Mọi ADR kỹ thuật chưa đủ evidence giữ PROPOSED; G1 vẫn IN_PROGRESS.
 
-## 4. Mẫu báo cáo G1 exit (chưa có kết quả)
+## 4. Checklist trước thực thi và audit
+
+- [x] 6/6 quyết định G1 đã duyệt, capacity và ưu tiên ngân sách đã ghi nhận.
+- [ ] T01: verify pin repo/contracts và G0 hashes; ghi tình trạng CI thực.
+- [ ] T02: registry/action policy deny-by-default và các fixture allow/deny, trước mọi ingest thật.
+- [ ] T03/T04: quyền thật theo từng action được xác nhận, catalog snapshot, mapping taxonomy, manifest mẫu và coverage gaps.
+- [ ] T05/T06: pin gold extraction + group split, metric/mẫu số, ngưỡng G1-03, config và digest trước audit real sample.
+- [ ] T08/T09: temporal fixture, graph gold scope/type/rubric và ngưỡng G1-04; pin trước graph audit G3.
+- [ ] T11/T12: human review pilot 27 cases, log effort/tier; khóa phân bổ holdout thực sau POC-11 và trước model selection.
+- [ ] T13: tổng hợp evidence, ADR theo pha, gate report, owner sign-off. Không đánh dấu PASS chỉ vì checklist kế hoạch đã duyệt.
+
+## 5. Mẫu báo cáo G1 exit (chưa có kết quả)
 
 - Gate run ID, date, repo commit, contract/schema/rights/corpus/taxonomy revisions.
 - Evidence link cho T01–T13, expected/actual/counts by strata, scripts/commands/resources và reproduction.
@@ -58,6 +69,6 @@ D01 là phê duyệt phạm vi nội bộ, không thay bằng chứng quyền c�
 - RTM delta đối với requirement/test/ADR liên quan; không thay G0 hash. Re-estimate engineering/human hours/calendar wait của roadmap; blockers, owner, action/due.
 - G1 verdict PLANNED/NOT_RUN/BLOCKED/FAIL/PASS phù hợp evidence, ký owner/date, next gate/rollback target. Hiện tại verdict chưa nghiệm thu.
 
-## 5. Bàn giao sang G2
+## 6. Bàn giao sang G2
 
 Chỉ chuyển sang G2 sau owner chốt G1 gate hoặc phê duyệt ngoại lệ bằng change control không hạ chuẩn. G2 nhận corpus authorized/verified dev snapshot, taxonomy IDs, canonical anchors và provenance, parser/quality policy, rights scope, storage sizing/ADR candidates, retrieval qrels/dev set (không holdout G5), manifest, TST-03 protocol và backlog POC-03. G2 so exact-key/keyword/dense/hybrid/rerank; G3 nhận temporal + graph migration/gold; G5 nhận split policy và review logs. Demo repo chỉ tham chiếu artifact và sample synthetic/approved, chưa cần đổi trong G1 documentation.

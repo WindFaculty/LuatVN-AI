@@ -1,12 +1,14 @@
 # G1-02 — Source rights, corpus và taxonomy
 
-Phiên bản 0.1-draft · POC-01 · TST-02 · REQ-DATA-01–03, 05–08, REQ-SEC-11 · BLOCKER-01, RISK-07
+Phiên bản 1.0 · Quyết định G1-D01–06 đã được chủ dự án duyệt ngày 26/11/2026 · POC-01 · TST-02 · REQ-DATA-01–03, 05–08, REQ-SEC-11 · BLOCKER-01, RISK-07
 
 ## 1. Quyền nguồn là gate đầu tiên
 
 Đối chiếu [discovery 26/11](poc01-sources.md) và [registry G0](../g0/registers.md#data-source-registry). HTTP 200, nhìn thấy tệp hoặc quyền đọc không đủ để suy ra quyền thu thập hàng loạt, lưu trữ, index, trích dẫn hoặc tái phân phối. Chủ dự án lưu căn cứ theo đúng hành động và không tự diễn giải đây là kết luận tuân thủ pháp lý.
 
-| Source | Ưu tiên proposed | Hành động tiếp theo | Khi bị chặn |
+Theo G1-D01, ưu tiên SRC-01/03; các nguồn khác tiếp tục khảo sát theo mức ưu tiên bên dưới, không có quyền tải/xử lý tự động nếu chưa xác minh từng hành động.
+
+| Source | Ưu tiên đã duyệt cho pilot | Hành động tiếp theo | Khi bị chặn |
 |---|---|---|---|
 | SRC-01 Công báo | P0 | Xác nhận manual sample, signed PDF/DOC, quyền lưu nội bộ, index test, citation, redistribution riêng | Giữ PENDING_RIGHTS; không ingest |
 | SRC-03 Văn bản Chính phủ | P0 | Xác nhận catalog và artifact, đối chiếu provenance với SRC-01 | Như trên; ghi overlap/gap |
@@ -19,11 +21,11 @@ Registry mỗi source + action: source_id, source URL/owner/contact, policy URL/
 
 ## 2. Taxonomy revision
 
-Giữ 9 nhóm pilot 0.1.0 làm lớp 1 trong khi chưa đo coverage: CIV, CRI, ADM, LAB, LND, BUS, TRA, EDU, ENV. Đề xuất mở rộng sub-domain bằng catalog chính thức, không tự khẳng định 9 nhãn là đầy đủ hệ thống pháp luật. Đặc biệt rà soát hiến định/quản trị nhà nước, tố tụng, tài chính/ngân hàng/bảo hiểm, thuế, SHTT/công nghệ, y tế, an sinh, hôn nhân/gia đình, quốc phòng/an ninh, thương mại quốc tế và lĩnh vực chuyên ngành. Nếu chưa có nhóm phù hợp, gắn UNMAPPED và review để thêm hoặc đổi nhãn có migration, không ép vào nhóm gần nhất.
+Giữ 9 nhóm pilot 0.1.0 làm lớp 1 trong khi chưa đo coverage: CIV, CRI, ADM, LAB, LND, BUS, TRA, EDU, ENV. Theo G1-D02, mở rộng sub-domain bằng catalog chính thức, không tự khẳng định 9 nhãn là đầy đủ hệ thống pháp luật. Đặc biệt rà soát hiến định/quản trị nhà nước, tố tụng, tài chính/ngân hàng/bảo hiểm, thuế, SHTT/công nghệ, y tế, an sinh, hôn nhân/gia đình, quốc phòng/an ninh, thương mại quốc tế và lĩnh vực chuyên ngành. Nếu chưa có nhóm phù hợp, gắn UNMAPPED và review để thêm hoặc đổi nhãn có migration, không ép vào nhóm gần nhất.
 
 Tách taxonomy lĩnh vực khỏi document_type, issuer, authority level, jurisdiction lineage, language, binding class, temporal state. Cho phép nhiều nhãn; benchmark gán domain chính cho group để thống kê độc lập. Lưu mapping aliases/names per revision và nguồn đối chiếu. Hiến pháp, văn bản hết hiệu lực, dự thảo, văn bản hợp nhất, công văn, án lệ và bản án có loại và policy riêng; metadata quan sát không tự khẳng định hiệu lực.
 
-## 3. Kế hoạch chọn mẫu (proposed; không phải corpus hiện có)
+## 3. Kế hoạch chọn mẫu đã duyệt (G1-D02; không phải corpus hiện có)
 
 | Lô | Mục tiêu | Mẫu dự kiến |
 |---|---|---:|
@@ -33,7 +35,7 @@ Tách taxonomy lĩnh vực khỏi document_type, issuer, authority level, jurisd
 | D temporal/graph gold | Có sửa đổi từng phần, hợp nhất, viện dẫn, locality/lineage và normative conditions | Mục tiêu 18 families (2/domain), có thể lấy từ B |
 | E review pilot | Query/case đại diện theo 9 nhóm | 27 cases mục tiêu (3/domain), tách holdout |
 
-Số lượng là target cho pilot, không phải điều kiện đủ đại diện toàn quốc hay số lượng benchmark 1.000. B/C/D là tập giao nhau được ghi manifest; không cộng thành ba corpus độc lập. Ưu tiên ca khó (scan kém, bảng qua trang, Điều 5a, sửa cụm từ, nhiều cơ quan hoặc local/time). Mỗi strata có mục tiêu, thực thu, lý do hụt, bias và owner remediation. Nếu quyền/format thiếu, synthetic dùng kiểm kỹ thuật và tách riêng số liệu.
+Số lượng 45/36/18/27 là mục tiêu pilot đã duyệt; thiếu mẫu phải báo gap và remediate, không tự giảm mục tiêu. Đây không phải điều kiện đủ đại diện toàn quốc hay số lượng benchmark 1.000. B/C/D là tập giao nhau được ghi manifest; không cộng thành ba corpus độc lập. Ưu tiên ca khó (scan kém, bảng qua trang, Điều 5a, sửa cụm từ, nhiều cơ quan hoặc local/time). Mỗi strata có mục tiêu, thực thu, lý do hụt, bias và owner remediation. Nếu quyền/format thiếu, synthetic dùng kiểm kỹ thuật và tách riêng số liệu.
 
 ## 4. Snapshot và phương pháp coverage
 
