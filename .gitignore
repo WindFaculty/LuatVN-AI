@@ -17,6 +17,9 @@ dist/
 build/
 *.egg-info/
 
+# Internal legal pilot corpus and provenance manifests
+/data/raw/
+
 # Node / Frontend
 node_modules/
 .vite/

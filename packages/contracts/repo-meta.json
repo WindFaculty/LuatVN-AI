@@ -2,7 +2,7 @@
   "name": "LuatVN-AI-contracts",
   "namespace": "WindFaculty",
   "repository": "https://github.com/WindFaculty/LuatVN-AI",
-  "visibility": "PRIVATE",
+  "visibility": "PUBLIC",
   "default_branch": "main",
   "scope": "V1",
   "kind": "contracts",

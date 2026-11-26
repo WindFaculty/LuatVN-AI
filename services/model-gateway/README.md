@@ -1,6 +1,6 @@
 # model-gateway
 
-- **Namespace**: `github.com/WindFaculty` (`PRIVATE`, nhánh mặc định `main`)
+- **Namespace**: `github.com/WindFaculty` (`PUBLIC`, nhánh mặc định `main`)
 - **Phạm vi**: `V1` · **Mốc gate**: `G4/G6`
 - **Chủ sở hữu**: Trần Xuân Khoa
 - **Phiên bản Contract pin**: `0.2.1-draft` ([contracts](../../packages/contracts/README.md))

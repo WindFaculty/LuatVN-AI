@@ -1,6 +1,6 @@
 # LuatVN-AI
 
-Monorepo private cho Luật Việt Nam AI. G0 đã nghiệm thu theo bộ hồ sơ v0.2.1. G1 đang triển khai khảo sát và PoC. [Baseline v1.1](Luat_Viet_Nam_AI_Requirements_Baseline_v1.1.md) · [ADR-07](docs/adr/ADR-07-monorepo-and-demo.md) · [Bằng chứng G1](docs/g1/README.md).
+Monorepo công khai (public) cho Luật Việt Nam AI. G0 đã nghiệm thu theo bộ hồ sơ v0.2.1. G1 đang triển khai khảo sát và PoC. [Baseline v1.1](Luat_Viet_Nam_AI_Requirements_Baseline_v1.1.md) · [ADR-07](docs/adr/ADR-07-monorepo-and-demo.md) · [Bằng chứng G1](docs/g1/README.md).
 
 | Thư mục | Nội dung |
 |---|---|

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "G1 graph annotation draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "dataset", "family_id", "domain", "layer", "unit", "type", "source_id", "label", "provenance", "scope", "valid", "recorded", "review_state"],
+  "properties": {
+    "id": {"$ref": "#/$defs/text"},
+    "dataset": {"enum": ["synthetic", "authorized"]},
+    "family_id": {"$ref": "#/$defs/text"},
+    "domain": {"enum": ["CIV", "CRI", "ADM", "LAB", "LND", "BUS", "TRA", "EDU", "ENV", "UNMAPPED"]},
+    "layer": {"enum": ["structural", "normative"]},
+    "unit": {"enum": ["node", "edge"]},
+    "type": {"$ref": "#/$defs/text"},
+    "source_id": {"$ref": "#/$defs/text"},
+    "target_id": {"$ref": "#/$defs/text"},
+    "label": {"$ref": "#/$defs/text"},
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provision_version_id", "anchor_id", "quote", "locator", "rights_ref"],
+      "properties": {
+        "provision_version_id": {"$ref": "#/$defs/text"}, "anchor_id": {"$ref": "#/$defs/text"},
+        "quote": {"$ref": "#/$defs/text"}, "locator": {"$ref": "#/$defs/text"},
+        "rights_ref": {"$ref": "#/$defs/text"}
+      }
+    },
+    "scope": {"type": ["string", "null"], "pattern": "\\S"},
+    "valid": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/valid"}]},
+    "recorded": {"$ref": "#/$defs/recorded"},
+    "review_state": {"enum": ["candidate", "conflict", "verified", "revoked"]},
+    "ambiguity_ref": {"$ref": "#/$defs/text"},
+    "reviewer": {"$ref": "#/$defs/text"},
+    "review_ref": {"$ref": "#/$defs/text"}
+  },
+  "allOf": [
+    {"if": {"properties": {"unit": {"const": "edge"}}}, "then": {"required": ["target_id"]}, "else": {"not": {"required": ["target_id"]}}},
+    {"if": {"properties": {"review_state": {"const": "conflict"}}}, "then": {"required": ["ambiguity_ref"]}},
+    {"if": {"properties": {"review_state": {"const": "verified"}}}, "then": {
+      "required": ["reviewer", "review_ref"],
+      "properties": {"dataset": {"const": "authorized"}, "scope": {"$ref": "#/$defs/text"}, "valid": {"$ref": "#/$defs/valid"}}
+    }},
+    {"if": {"properties": {"layer": {"const": "structural"}, "unit": {"const": "edge"}}}, "then": {
+      "properties": {"type": {"enum": ["modifies", "replaces", "repeals", "guides", "corrects", "references", "contains", "lineage", "locality"]}}
+    }},
+    {"if": {"properties": {"layer": {"const": "structural"}, "unit": {"const": "node"}}}, "then": {
+      "properties": {"type": {"enum": ["document", "provision", "jurisdiction"]}}
+    }},
+    {"if": {"properties": {"layer": {"const": "normative"}, "unit": {"const": "edge"}}}, "then": {
+      "properties": {"type": {"enum": ["applies_to", "grants", "imposes", "conditioned_by", "excepted_by"]}}
+    }},
+    {"if": {"properties": {"layer": {"const": "normative"}, "unit": {"const": "node"}}}, "then": {
+      "properties": {"type": {"enum": ["Subject", "Right", "Obligation", "Condition", "Exception"]}}
+    }}
+  ],
+  "$defs": {
+    "text": {"type": "string", "pattern": "\\S"},
+    "valid": {
+      "type": "object", "additionalProperties": false, "required": ["from", "until"],
+      "properties": {"from": {"type": "string", "format": "date"}, "until": {"type": ["string", "null"], "format": "date"}}
+    },
+    "recorded": {
+      "type": "object", "additionalProperties": false, "required": ["from", "until"],
+      "properties": {"from": {"type": "string", "format": "date-time"}, "until": {"type": ["string", "null"], "format": "date-time"}}
+    }
+  }
+}

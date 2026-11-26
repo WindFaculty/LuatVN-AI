@@ -41,7 +41,7 @@ Xây dựng một nền tảng Legal Intelligence phục vụ người Việt Na
 | DEC-04 | Tự kiểm chứng toàn bộ trong Technical Preview, tìm chuyên gia sau. |
 | DEC-05 | Knowledge Graph chuyên sâu bắt buộc hoàn thành trong V1. |
 | DEC-06 | Standard hoàn chỉnh; Advanced đủ chứng minh Agentic RAG; Expert Research sau V1. |
-| DEC-07 | Dùng một monorepo private cho sản phẩm và một repo riêng cho demo. Các service V1 là thư mục/package. Phần LATER nằm trong backlog. |
+| DEC-07 | Dùng một monorepo cho sản phẩm (`WindFaculty/LuatVN-AI`, chuyển công khai ngày 27/11/2026 theo phê duyệt của chủ dự án) và một repo riêng cho demo; dữ liệu thô (`data/raw/`), secrets và holdout giữ ngoài Git. Các service V1 là thư mục/package. Phần LATER nằm trong backlog. |
 | DEC-08 | Đủ năm khả năng lưu trữ logic; chọn số database vật lý theo PoC. |
 | DEC-09 | 100–500 là tổng tài khoản đăng ký dự kiến; concurrency TBD theo benchmark. |
 | DEC-10 | Quản lý phiên bản đầy đủ, bitemporal, provenance, mở rộng loại văn bản, Rule Engine có kiểm chứng. |
@@ -159,7 +159,7 @@ Nội dung này là yêu cầu thiết kế, không phải kết luận tư vấ
 # 8. Kiến trúc phần mềm, repo, cloud
 
 REQ-ARCH-01 MUST: Python + FastAPI cho backend, coarse-to-fine microservices; phạm vi service thiết kế đầy đủ, triển khai theo roadmap; không đồng nhất service boundary với một DB/máy chủ riêng.
-REQ-ARCH-02 MUST: Mã nguồn sản phẩm nằm trong một monorepo private dùng một Git root. Apps, services và contracts có thư mục, ownership và đầu mối build/test theo component. Repo demo riêng quản lý cấu hình sandbox và dữ liệu mẫu được duyệt, tham chiếu bản build có phiên bản từ repo sản phẩm. Phạm vi LATER nằm trong backlog cho đến khi được kích hoạt.
+REQ-ARCH-02 MUST: Mã nguồn sản phẩm nằm trong một monorepo (`WindFaculty/LuatVN-AI`, chuyển công khai ngày 27/11/2026 theo quyết định của chủ dự án) dùng một Git root; dữ liệu thô, credentials và holdout chưa rút gọn nằm ngoài Git. Apps, services và contracts có thư mục, ownership và đầu mối build/test theo component. Repo demo riêng quản lý cấu hình sandbox và dữ liệu mẫu được duyệt, tham chiếu bản build có phiên bản từ repo sản phẩm. Phạm vi LATER nằm trong backlog cho đến khi được kích hoạt.
 REQ-ARCH-03 MUST: Năm năng lực lưu trữ logic: relational PostgreSQL, vector, keyword/search, graph và object storage. Lựa chọn số lượng database vật lý theo PoC; pgvector, FTS, relationship tables, Qdrant, OpenSearch, Neo4j, S3-compatible chỉ là ứng viên. Source of truth, quyền ownership/schema, consistency, index versioning, reindex/recovery và API contract cần thiết kế.
 REQ-ARCH-04 SHOULD: Monorepo có docs/ADR/infra, integration tests và release manifest chung. Quản lý OpenAPI/schema ở packages/contracts, sinh SDK và pin version, truy vết xuyên service. Quyền ghi schema theo ownership của từng service.
 REQ-CLOUD-01 MUST: Local + Cloud; Managed Services cho production; ưu tiên kết hợp Cloudflare/GCP/provider khác dựa giá, năng lực và quyền bảo mật. Trial GCP 300 USD/3 tháng theo kế hoạch của người dùng, xác minh điều kiện hiện hành trước dùng; local trước rồi cloud benchmark. Không giả định giá/quota/trial còn hiệu lực hoặc đủ trả LLM.
@@ -208,7 +208,7 @@ REQ-EVAL-03 MUST: Tập train/dev/tuning/test tách biệt; cố định test tr
 REQ-EVAL-04 MUST: So sánh baseline LLM không RAG, dense, hybrid, rerank, legal structure/temporal, graph/multi-hop, verification, agent; ablation có kiểm soát biến; đánh giá recall/nDCG/correctness/faithfulness/citations/temporal/abstention, safety, latency, cost; so sánh các mode cùng dữ liệu/test. Không bắt buộc fine-tune V1. Nếu một kỹ thuật V1 đã được chọn không cải thiện chất lượng, ghi rõ kết quả; không tự loại khỏi scope mà không có change control.
 REQ-EVAL-05 MUST: Regression tự động khi đổi model, prompt, retrieval, data, graph, rules; chặn deploy khi gate fail; tracking, versioned dataset/model/prompt/config, trace, model registry, monitoring, phê duyệt model mới.
 REQ-EVAL-06 MUST: Sau phát hành lấy mẫu/feedback, kiểm duyệt, root-cause, fix, bổ sung regression, rerun gate; bảo vệ privacy; có cơ chế khóa/tạm dừng chức năng lỗi và đính chính phù hợp.
-REQ-EVAL-07 MUST: Công khai báo cáo benchmark, Architecture Overview, Technical Case Study, demo/video; private production source và kho dữ liệu; công bố mẫu dữ liệu khi có quyền, không mặc định công khai toàn bộ dataset/code.
+REQ-EVAL-07 MUST: Công khai báo cáo benchmark, Architecture Overview, Technical Case Study, demo/video và mã nguồn monorepo sản phẩm theo quyết định chủ dự án ngày 27/11/2026; giữ ngoài Git đối với dữ liệu thô (`data/raw/`), holdout chưa rút gọn và production credentials; công bố mẫu dữ liệu khi có quyền, không mặc định công khai toàn bộ dataset vận hành.
 REQ-EVAL-08 MUST: Không phát hành chế độ trả phí trước khi chứng minh lợi ích so Standard; Standard và Advanced chung chuẩn an toàn; P95 và cost per mode TBD theo benchmark; streaming progress được kiểm chứng.
 
 ## 10.1 AC V1 — ngưỡng đã chọn
@@ -268,7 +268,7 @@ Không mặc định ngân sách tối đa hoặc vendor fee. Dự toán = cloud
 | RISK-03 | Phụ thuộc chéo giữa các component monorepo và drift giữa sản phẩm với demo | Kiểm contracts và component trong CI chung, build/test theo thành phần và pin artifact của sandbox. Repo demo có quyền vận hành riêng. |
 | RISK-04 | 100% API và tài liệu nhạy cảm | Privacy-first allowlist và redaction; không có provider phù hợp thì từ chối, không fallback. |
 | RISK-05 | Demo online, chi phí mở | App caps + quota, dự toán measured; không dùng trial như mô hình tài chính lâu dài. |
-| RISK-06 | Mã nguồn private và bằng chứng cá nhân | Công khai report/case study/demo, trace sanitized; review code riêng theo quyền, không tự public. |
+| RISK-06 | Mã nguồn công khai và bảo vệ dữ liệu riêng tư | Công khai mã nguồn đã kiểm soát, report/case study/demo và trace sanitized; giữ credentials, secrets, `data/raw/` và dữ liệu cá nhân ngoài Git theo quy trình rà soát. |
 | RISK-07 | Độ bao phủ corpus/graph, quyền khai thác, độ đúng Rule Engine | Khảo sát và kiểm chứng trước sử dụng; không mẫu hóa thành kết luận nghiệp vụ chưa thẩm định. |
 | RISK-08 | Khả năng tự debug, tích hợp do coding agents | Task nhỏ, tests thật/integration, evidence, review thủ công, không bỏ qua failing tests hoặc tuyên bố pass nếu không chạy. |
 

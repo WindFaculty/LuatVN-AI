@@ -1,0 +1,18 @@
+[
+  {
+    "id": "fixture-civ-structural", "dataset": "synthetic", "family_id": "fixture-family-1",
+    "domain": "CIV", "layer": "structural", "unit": "edge", "type": "modifies",
+    "source_id": "fixture-amendment", "target_id": "fixture-provision", "label": "Sửa điều mẫu",
+    "provenance": {"provision_version_id": "fixture-v1", "anchor_id": "fixture-a1", "quote": "Sửa Điều 2a trong mẫu giả lập.", "locator": "page:1", "rights_ref": "fixture-only"},
+    "scope": "fixture", "valid": {"from": "2026-01-01", "until": null},
+    "recorded": {"from": "2026-11-26T00:00:00+07:00", "until": null}, "review_state": "candidate"
+  },
+  {
+    "id": "fixture-adm-normative", "dataset": "synthetic", "family_id": "fixture-family-2",
+    "domain": "ADM", "layer": "normative", "unit": "edge", "type": "excepted_by",
+    "source_id": "fixture-obligation", "target_id": "fixture-exception", "label": "Ngoại lệ mẫu",
+    "provenance": {"provision_version_id": "fixture-v2", "anchor_id": "fixture-a2", "quote": "Bỏ qua bước này khi dùng hồ sơ thử.", "locator": "page:2", "rights_ref": "fixture-only"},
+    "scope": null, "valid": null, "recorded": {"from": "2026-11-26T00:00:00+07:00", "until": null},
+    "review_state": "conflict", "ambiguity_ref": "fixture-scope-review"
+  }
+]

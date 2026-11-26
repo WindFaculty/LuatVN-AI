@@ -10,7 +10,7 @@ class SkeletonSmokeTest(unittest.TestCase):
         meta = json.loads(pathlib.Path("repo-meta.json").read_text(encoding="utf-8"))
         self.assertEqual(meta["name"], SERVICE_NAME)
         self.assertEqual(meta["contracts_version"], CONTRACTS_VERSION)
-        self.assertEqual(meta["visibility"], "PRIVATE")
+        self.assertEqual(meta["visibility"], "PUBLIC")
 
 
 if __name__ == "__main__":

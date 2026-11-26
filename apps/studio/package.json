@@ -4,6 +4,6 @@
   "private": true,
   "description": "Legal AI Studio (React + Vite + TypeScript): isolated Public Sandbox (ADR-05) & MFA Production Admin",
   "scripts": {
-    "test": "node -e \"const m=require('./repo-meta.json'); if(m.contracts_version!=='0.2.1-draft'||m.visibility!=='PRIVATE') process.exit(1); console.log('PASS:', m.name);\""
+    "test": "node -e \"const m=require('./repo-meta.json'); if(m.contracts_version!=='0.2.1-draft'||m.visibility!=='PUBLIC') process.exit(1); console.log('PASS:', m.name);\""
   }
 }
