@@ -5,7 +5,7 @@ a38762955354f4c4efc06f72c5f2d770e98bccb3652c26d5af7da9296af0e991  docs/adr/ADR-0
 c2f0d7e14e9bb360b2fe2ca1ea7428797b068127869e2afab5aec821c60a2a0a  docs/g1/evidence/g1-real-audit-2026-11-27.json
 6f7688da3f2cc0252935fb0d059ffb913bced7d44902499313a098daafc063db  docs/g1/evidence/g1-real-audit-2026-11-27.md
 2642d593a49a69dc8b8f5d35cc1b180e8909c7ce8904a52e59359419a01113a1  docs/g1/evidence/owner-decision-g1-d01-2026-11-27.md
-e6969b731eb20d003490c3e9ee143ceb5fbe20fd8b624e1de9f74a8aba9f47f8  docs/g1/g1-exit-report-2026-11-27.md
+efe5ddc06160454cc77e24f75f6bc579dfb430145fd228fc62809d9272490531  docs/g1/g1-exit-report-2026-11-27.md
 3a4a2d6aaf523ffc41c73d8e7a7953f9b90a0fcd22db46950f701afed1f63471  experiments/g1/build_real_graph_candidates.py
 ae8159a1b63ed07d9796d928897d75eebdb1c1773e162cdd3629dc0c1e0a3c63  experiments/g1/graph-gold-draft.schema.json
 818b5eaa49bdc5113522402a94ce025ae60ed5790986d471baa03b45d9e45f39  experiments/g1/measure_storage_sizing.py

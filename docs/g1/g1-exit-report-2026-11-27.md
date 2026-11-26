@@ -5,7 +5,7 @@
 - **Nhánh / Commit nền**: `docs/g1-execution-plan` (nền `72218a681edf8de47d777825dc5fc9389077e6aa`)
 - **Chủ dự án**: Trần Xuân Khoa
 - **Phiên bản ghim**: Contract `0.2.1-draft` · Taxonomy `g1-taxonomy-0.2.0-candidate` · Schema graph `graph-gold-draft.schema.json` · Quyền nguồn `G1-D01-20261127-STATUTORY-R01` (registry mặc định repo vẫn `g1-rights-pending-v1` fail-closed)
-- **Hosted GitHub Actions CI**: `PENDING_PUSH_VERIFICATION` (repo `WindFaculty/LuatVN-AI` đã chuyển sang `PUBLIC` ngày 27/11/2026; đang kích hoạt workflow qua PR)
+- **Hosted GitHub Actions CI**: **`PASS`** (`workspace` + `contracts` đều `success` tại lượt [Run 45869534740](https://github.com/WindFaculty/LuatVN-AI/actions/runs/45869534740) trên [PR #1](https://github.com/WindFaculty/LuatVN-AI/pull/1), commit `4976a6fe019d452b08b0bd2014b2af1878bd4aa5`; repo `WindFaculty/LuatVN-AI` đã chuyển `PUBLIC` ngày 27/11/2026)
 
 > **KẾT LUẬN GATE G1 (`VERDICT`): `BLOCKED` (Chờ kiểm chứng người thật L2 và ký duyệt của chủ dự án).**  
 > Toàn bộ hạng mục kỹ thuật, chuẩn hóa dữ liệu thật đa định dạng, kiểm thử bitemporal trên PostgreSQL 18.6, 187 bản ghi graph 18 họ hợp lệ schema, đo dung lượng 5 năng lực và chuẩn bị 27 ca `POC-11` đã hoàn thành trung thực; **không** tự bịa đặt kết quả review L2/L3 hoặc tự ký thay chủ dự án.
@@ -16,7 +16,7 @@
 
 | ID | Nội dung | Trạng thái | Bằng chứng chính | Còn lại (nếu có) |
 |---|---|---|---|---|
-| `G1-T01` | Verify repo/contracts/G0 hashes + public CI | `PASS_LOCAL` · Chờ xác nhận CI hosted | `verify-workspace.py --smoke` (`25` G0 digests, `123` RTM IDs, `10` component, `49` Python + `2` TS tests), kiểm contract cục bộ, `WindFaculty/LuatVN-AI` chuyển `PUBLIC` | Gắn link green CI run sau push/PR |
+| `G1-T01` | Verify repo/contracts/G0 hashes + public CI | `PASS` | `verify-workspace.py --smoke` (`25` G0 digests, `123` RTM IDs, `10` component, `49` Python + `2` TS tests), kiểm contract cục bộ, `WindFaculty/LuatVN-AI` chuyển `PUBLIC` và [CI Run 45869534740](https://github.com/WindFaculty/LuatVN-AI/actions/runs/45869534740) (`workspace` + `contracts` `success`) | Hoàn tất |
 | `G1-T02` | Source/action registry deny-by-default & quyền G1 | `PASS` | `source_rights.py` per-operation scope + SQLite cross-process rate limiter; [quyết định quyền luật định](evidence/owner-decision-g1-d01-2026-11-27.md) | Mở rộng nguồn `SRC-02`, `SRC-04..07` ở G2 |
 | `G1-T03` | Catalog snapshot & dedup trên nguồn thật | `PASS_SAMPLE_AND_PARTIAL_CATALOG` | `50` bản ghi nguồn, `45` họ, `48` version, `70` tệp duy nhất; `SRC-03` (`48.101` all-time, `195` Luật + `1.441` Nghị định 2020–cutoff), `SRC-01` (`2.673` trang) | Đếm khử trùng toàn bộ 2020–cutoff trên `SRC-01`/`SRC-03` thực hiện tại G2 bulk ingest |
 | `G1-T04` | Taxonomy revision, sub-domain & gap register | `CANDIDATE_READY` | `g1-taxonomy-0.2.0-candidate` với sub-domain đủ `45` họ (`9` lĩnh vực × `5`) và `9` khoảng trống V1 | Chủ dự án duyệt chính thức |
@@ -42,7 +42,7 @@
 | `G1-AC-D` | Temporal migration + Graph 18 họ đủ 2 tầng | `CANDIDATE_READY` | PG 18.6 temporal PASS; `187` bản ghi graph 18 họ (đủ structural & normative) hợp lệ 100% JSON Schema; chờ duyệt gold & rubric G3 |
 | `G1-AC-E` | Storage sizing thực đo & ADR từng phần | `PASS` | Đã đo PG 18.6 thực tế + dự báo Low/Base/High trong [ADR-02](../adr/ADR-02-storage-and-indexing.md) |
 | `G1-AC-F` | `POC-11` human review, effort & ADR-06 | `BLOCKED_HUMAN` | Dữ liệu & phiếu 27 ca sẵn sàng (`0` bịa đặt); còn chờ 18 review L2 thật của chủ dự án |
-| `G1-AC-G` | Báo cáo Gate, RTM/ADRs & CI trung thực | `IN_PROGRESS` | Chờ xác nhận lượt GitHub Actions CI xanh và chữ ký chủ dự án |
+| `G1-AC-G` | Báo cáo Gate, RTM/ADRs & CI trung thực | `READY_FOR_OWNER_SIGNOFF` | Hồ sơ Gate + `ADR-02/03/06/07` + local checks + [GitHub Actions CI Run 45869534740](https://github.com/WindFaculty/LuatVN-AI/actions/runs/45869534740) (`workspace` & `contracts` `PASS`); chỉ còn chữ ký gate của chủ dự án |
 
 ---
 
