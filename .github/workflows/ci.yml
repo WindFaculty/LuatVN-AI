@@ -1,0 +1,17 @@
+name: Control Docs & Manifest CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify-control:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify G0 links, RTM coverage, SHA-256 and workspace manifest
+        run: python scripts/verify-control.py

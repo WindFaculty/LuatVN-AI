@@ -1,0 +1,424 @@
+openapi: 3.1.0
+info:
+  title: Luật Việt Nam AI - Answer API
+  version: 0.2.1-draft
+  description: Hợp đồng thiết kế G0 cho vòng đời Answer và SSE.
+servers:
+  - url: /
+security:
+  - bearerAuth: []
+  - guestSession: []
+paths:
+  /v1/answers:
+    post:
+      operationId: createAnswer
+      summary: Tạo lượt hỏi
+      description: Kiểm policy, quota và ownership trước khi tạo lượt hỏi. Yêu cầu CSRF hợp lệ khi dùng cookie.
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema:
+            type: string
+            minLength: 16
+            maxLength: 128
+            pattern: '^[A-Za-z0-9._-]+$'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAnswer'
+            example:
+              question: Quy định trong Điều 5a ở thời điểm tôi chọn áp dụng thế nào?
+              mode: standard
+              language: vi
+              legal_as_of: '2025-05-05'
+      responses:
+        '202':
+          description: Đã nhận. Cùng owner, key và payload trả lại cùng answer ID.
+          headers:
+            Cache-Control:
+              $ref: '#/components/headers/NoStore'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcceptedAnswer'
+        '409':
+          description: Idempotency key đã dùng với payload khác.
+          headers:
+            Cache-Control:
+              $ref: '#/components/headers/NoStore'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        default:
+          $ref: '#/components/responses/Error'
+  /v1/answers/{id}:
+    parameters:
+      - $ref: '#/components/parameters/AnswerId'
+    get:
+      operationId: getAnswer
+      summary: Đọc trạng thái hoặc kết quả còn lưu
+      responses:
+        '200':
+          $ref: '#/components/responses/RunState'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        default:
+          $ref: '#/components/responses/Error'
+  /v1/answers/{id}/events:
+    parameters:
+      - $ref: '#/components/parameters/AnswerId'
+    get:
+      operationId: streamAnswer
+      summary: Theo dõi tiến trình và kết quả
+      parameters:
+        - name: Last-Event-ID
+          in: header
+          required: false
+          schema:
+            $ref: '#/components/schemas/EventCursor'
+      responses:
+        '200':
+          description: Mỗi frame có id tăng dần, event và data JSON. Heartbeat là comment không có id.
+          headers:
+            Cache-Control:
+              $ref: '#/components/headers/NoStore'
+          content:
+            text/event-stream:
+              schema:
+                type: string
+              x-frame-data-schema: '#/components/schemas/SseData'
+              example: |+
+                id: 1
+                event: answer.progress
+                data: {"type":"answer.progress","answer_id":"6ee86364-3a35-456a-930b-cf1c4f37861b","stage":"verification","status":"started"}
+
+        '204':
+          description: Client đã nhận terminal event. Kết thúc tự động kết nối lại.
+          headers:
+            Cache-Control:
+              $ref: '#/components/headers/NoStore'
+        '409':
+          description: Cursor không hợp lệ hoặc replay đã hết hạn. Dùng getAnswer.
+          headers:
+            Cache-Control:
+              $ref: '#/components/headers/NoStore'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        default:
+          $ref: '#/components/responses/Error'
+  /v1/answers/{id}/cancel:
+    parameters:
+      - $ref: '#/components/parameters/AnswerId'
+    post:
+      operationId: cancelAnswer
+      summary: Yêu cầu hủy lượt hỏi
+      description: Lặp yêu cầu hủy an toàn. Yêu cầu CSRF hợp lệ khi dùng cookie.
+      responses:
+        '200':
+          $ref: '#/components/responses/RunState'
+        '202':
+          description: Đã ghi nhận yêu cầu hủy.
+          headers:
+            Cache-Control:
+              $ref: '#/components/headers/NoStore'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancellationAccepted'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        default:
+          $ref: '#/components/responses/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    guestSession:
+      type: apiKey
+      in: cookie
+      name: __Host-lvn-session
+  parameters:
+    AnswerId:
+      name: id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/Id'
+  headers:
+    NoStore:
+      schema:
+        type: string
+        const: no-store
+  responses:
+    RunState:
+      description: Trạng thái hiện tại hoặc kết quả ở terminal state.
+      headers:
+        Cache-Control:
+          $ref: '#/components/headers/NoStore'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RunState'
+    Error:
+      description: Lỗi API theo mã ổn định, gồm 400, 401, 403, 404, 409, 429 hoặc 503.
+      headers:
+        Cache-Control:
+          $ref: '#/components/headers/NoStore'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: age_policy_denied
+            message: Phiên hiện tại chỉ có quyền tra cứu.
+            request_id: 4e750fb0-263d-49ba-8ad9-8bae34b73897
+    InternalError:
+      description: Lỗi máy chủ ngoài dự kiến trước khi gửi HTTP headers. Mã lỗi là internal_error.
+      headers:
+        Cache-Control:
+          $ref: '#/components/headers/NoStore'
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/Error'
+              - properties:
+                  code: {const: internal_error}
+          example:
+            code: internal_error
+            message: Đã xảy ra lỗi khi xử lý yêu cầu.
+            request_id: 4e750fb0-263d-49ba-8ad9-8bae34b73897
+  schemas:
+    Id:
+      type: string
+      format: uuid
+    Mode:
+      type: string
+      enum: [standard, advanced]
+    Language:
+      type: string
+      enum: [vi, en]
+    TextList:
+      type: array
+      items:
+        type: string
+    CreateAnswer:
+      type: object
+      additionalProperties: false
+      required: [question, mode, language]
+      properties:
+        question: {type: string, minLength: 1}
+        mode: {$ref: '#/components/schemas/Mode'}
+        language: {$ref: '#/components/schemas/Language'}
+        legal_as_of: {type: string, format: date}
+        conversation_id: {$ref: '#/components/schemas/Id'}
+        jurisdiction_id: {$ref: '#/components/schemas/Id'}
+    AcceptedAnswer:
+      type: object
+      additionalProperties: false
+      required: [answer_id, request_id, status, events_url]
+      properties:
+        answer_id: {$ref: '#/components/schemas/Id'}
+        request_id: {$ref: '#/components/schemas/Id'}
+        status: {const: queued}
+        events_url: {type: string, format: uri-reference}
+    ActiveAnswer:
+      type: object
+      additionalProperties: false
+      required: [answer_id, status]
+      properties:
+        answer_id: {$ref: '#/components/schemas/Id'}
+        status: {enum: [queued, running, cancelling]}
+    CancellationAccepted:
+      type: object
+      additionalProperties: false
+      required: [answer_id, status]
+      properties:
+        answer_id: {$ref: '#/components/schemas/Id'}
+        status: {const: cancelling}
+    RunState:
+      oneOf:
+        - $ref: '#/components/schemas/ActiveAnswer'
+        - $ref: '#/components/schemas/AnswerWithEvidence'
+        - $ref: '#/components/schemas/AnswerWithoutEvidence'
+      discriminator:
+        propertyName: status
+        mapping:
+          queued: '#/components/schemas/ActiveAnswer'
+          running: '#/components/schemas/ActiveAnswer'
+          cancelling: '#/components/schemas/ActiveAnswer'
+          verified: '#/components/schemas/AnswerWithEvidence'
+          partial: '#/components/schemas/AnswerWithEvidence'
+          needs_facts: '#/components/schemas/AnswerWithoutEvidence'
+          insufficient_evidence: '#/components/schemas/AnswerWithoutEvidence'
+          policy_denied: '#/components/schemas/AnswerWithoutEvidence'
+          canceled: '#/components/schemas/AnswerWithoutEvidence'
+          failed: '#/components/schemas/AnswerWithoutEvidence'
+    Validity:
+      type: object
+      additionalProperties: false
+      required: [valid_from, valid_to]
+      properties:
+        valid_from: {type: string, format: date}
+        valid_to: {type: [string, 'null'], format: date}
+    Evidence:
+      type: object
+      additionalProperties: false
+      required: [evidence_id, provision_id, version_id, quote, url, anchor, validity, source_revision]
+      properties:
+        evidence_id: {$ref: '#/components/schemas/Id'}
+        provision_id: {$ref: '#/components/schemas/Id'}
+        version_id: {$ref: '#/components/schemas/Id'}
+        quote: {type: string, minLength: 1}
+        url: {type: string, format: uri}
+        anchor: {type: string, minLength: 1}
+        validity: {$ref: '#/components/schemas/Validity'}
+        source_revision: {type: string, minLength: 1}
+    VerifiedClaim:
+      type: object
+      additionalProperties: false
+      required: [claim_id, text, verification, evidence_ids]
+      properties:
+        claim_id: {$ref: '#/components/schemas/Id'}
+        text: {type: string, minLength: 1}
+        verification: {const: verified}
+        evidence_ids:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items: {$ref: '#/components/schemas/Id'}
+    AnswerResult:
+      oneOf:
+        - $ref: '#/components/schemas/AnswerWithEvidence'
+        - $ref: '#/components/schemas/AnswerWithoutEvidence'
+      discriminator:
+        propertyName: status
+        mapping:
+          verified: '#/components/schemas/AnswerWithEvidence'
+          partial: '#/components/schemas/AnswerWithEvidence'
+          needs_facts: '#/components/schemas/AnswerWithoutEvidence'
+          insufficient_evidence: '#/components/schemas/AnswerWithoutEvidence'
+          policy_denied: '#/components/schemas/AnswerWithoutEvidence'
+          canceled: '#/components/schemas/AnswerWithoutEvidence'
+          failed: '#/components/schemas/AnswerWithoutEvidence'
+    AnswerResultCommon:
+      type: object
+      required:
+        - answer_id
+        - request_id
+        - mode
+        - language
+        - legal_as_of
+        - recorded_as_of
+        - snapshot_id
+        - facts
+        - assumptions
+        - missing_facts
+        - limitations
+        - expert_review_required
+      properties:
+        answer_id: {$ref: '#/components/schemas/Id'}
+        request_id: {$ref: '#/components/schemas/Id'}
+        mode: {$ref: '#/components/schemas/Mode'}
+        language: {$ref: '#/components/schemas/Language'}
+        legal_as_of: {type: string, format: date}
+        recorded_as_of: {type: string, format: date-time}
+        snapshot_id: {$ref: '#/components/schemas/Id'}
+        facts: {$ref: '#/components/schemas/TextList'}
+        assumptions: {$ref: '#/components/schemas/TextList'}
+        missing_facts: {$ref: '#/components/schemas/TextList'}
+        limitations: {$ref: '#/components/schemas/TextList'}
+        expert_review_required: {type: boolean}
+    AnswerWithEvidence:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/AnswerResultCommon'
+      unevaluatedProperties: false
+      required: [status, summary, claims, evidence, risks]
+      properties:
+        status: {type: string, enum: [verified, partial]}
+        summary: {type: string, minLength: 1}
+        claims:
+          type: array
+          minItems: 1
+          items: {$ref: '#/components/schemas/VerifiedClaim'}
+        evidence:
+          type: array
+          minItems: 1
+          items: {$ref: '#/components/schemas/Evidence'}
+        risks: {$ref: '#/components/schemas/TextList'}
+    AnswerWithoutEvidence:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/AnswerResultCommon'
+      unevaluatedProperties: false
+      required: [status, summary, claims, evidence, risks]
+      properties:
+        status: {type: string, enum: [needs_facts, insufficient_evidence, policy_denied, canceled, failed]}
+        summary: {type: 'null'}
+        claims:
+          type: array
+          maxItems: 0
+          items: {$ref: '#/components/schemas/VerifiedClaim'}
+        evidence:
+          type: array
+          maxItems: 0
+          items: {$ref: '#/components/schemas/Evidence'}
+        risks:
+          type: array
+          maxItems: 0
+          items: {type: string}
+    EventCursor:
+      type: string
+      pattern: '^[1-9][0-9]*$'
+    SseData:
+      oneOf:
+        - $ref: '#/components/schemas/ProgressEvent'
+        - $ref: '#/components/schemas/CompletedEvent'
+      discriminator:
+        propertyName: type
+        mapping:
+          answer.progress: '#/components/schemas/ProgressEvent'
+          answer.completed: '#/components/schemas/CompletedEvent'
+    ProgressEvent:
+      type: object
+      additionalProperties: false
+      required: [type, answer_id, stage, status]
+      properties:
+        type: {const: answer.progress}
+        answer_id: {$ref: '#/components/schemas/Id'}
+        stage:
+          enum: [classification, planning, retrieval, comparison, verification]
+          description: planning dành cho bước lập kế hoạch của Advanced mode.
+        status: {enum: [started, finished]}
+        document_count: {type: integer, minimum: 0}
+    CompletedEvent:
+      type: object
+      additionalProperties: false
+      required: [type, answer_id, result]
+      properties:
+        type: {const: answer.completed}
+        answer_id: {$ref: '#/components/schemas/Id'}
+        result: {$ref: '#/components/schemas/AnswerResult'}
+    Error:
+      type: object
+      additionalProperties: false
+      required: [code, message, request_id]
+      properties:
+        code:
+          type: string
+          enum: [invalid_request, unauthenticated, age_policy_denied, release_scope_denied, forbidden, not_found, idempotency_conflict, replay_unavailable, quota_exhausted, dependency_unavailable, internal_error]
+        message: {type: string, minLength: 1}
+        request_id: {$ref: '#/components/schemas/Id'}
+        retry_after_seconds: {type: integer, minimum: 0}

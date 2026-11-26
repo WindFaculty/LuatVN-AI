@@ -1,0 +1,661 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Luật Việt Nam AI - Internal v1",
+  "description": "Hợp đồng thiết kế G0 cho ba event, một query và một command nội bộ.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/candidateVerified"
+    },
+    {
+      "$ref": "#/$defs/snapshotReady"
+    },
+    {
+      "$ref": "#/$defs/evidenceQuery"
+    },
+    {
+      "$ref": "#/$defs/modelRequest"
+    },
+    {
+      "$ref": "#/$defs/gateReport"
+    }
+  ],
+  "$defs": {
+    "envelope": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "correlation_id",
+        "producer",
+        "environment",
+        "occurred_at",
+        "payload"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "producer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "environment": {
+          "enum": [
+            "dev",
+            "testing",
+            "staging",
+            "production",
+            "sandbox"
+          ]
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "payload": {
+          "type": "object"
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "level",
+        "mode"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "enum": [
+            "global",
+            "domain",
+            "cell"
+          ]
+        },
+        "domain_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "risk": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "mode": {
+          "enum": [
+            "standard",
+            "advanced"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "level": {
+                "const": "global"
+              }
+            }
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "domain_id"
+                  ]
+                },
+                {
+                  "required": [
+                    "task_id"
+                  ]
+                },
+                {
+                  "required": [
+                    "risk"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "level": {
+                "const": "domain"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "domain_id"
+            ],
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "task_id"
+                  ]
+                },
+                {
+                  "required": [
+                    "risk"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "level": {
+                "const": "cell"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "domain_id",
+              "task_id",
+              "risk"
+            ]
+          }
+        }
+      ]
+    },
+    "metric": {
+      "type": "object",
+      "required": [
+        "metric_id",
+        "denominator",
+        "observed",
+        "independent_groups",
+        "evidence_ref"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "metric_id": {
+          "type": "string",
+          "anyOf": [
+            {"$ref": "#/$defs/acId"},
+            {
+              "enum": [
+                "citation_coverage",
+                "false_abstention",
+                "useful_answer_rate",
+                "graph_precision",
+                "graph_coverage",
+                "extraction_cer"
+              ]
+            }
+          ]
+        },
+        "ac_id": {
+          "$ref": "#/$defs/acId"
+        },
+        "numerator": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "denominator": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "observed": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "independent_groups": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ci": {
+          "$ref": "#/$defs/confidenceInterval"
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "acId": {
+      "type": "string",
+      "pattern": "^AC-(0[1-9]|1[0-6])$"
+    },
+    "confidenceInterval": {
+      "type": "object",
+      "required": ["ci_low", "ci_high", "ci_method"],
+      "additionalProperties": false,
+      "properties": {
+        "ci_low": {"type": "number"},
+        "ci_high": {"type": "number"},
+        "ci_method": {"type": "string", "minLength": 1}
+      }
+    },
+    "candidateVerified": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "CandidateVerified.v1"
+            },
+            "transport": {
+              "const": "event"
+            },
+            "payload": {
+              "type": "object",
+              "required": [
+                "candidate_id",
+                "canonical_identity",
+                "artifact_digest",
+                "source_revision",
+                "review_evidence_ref",
+                "verification"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "candidate_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "canonical_identity": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "artifact_digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                "source_revision": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "review_evidence_ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "verification": {
+                  "const": "verified"
+                }
+              }
+            },
+            "aggregate_revision": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "transport",
+            "aggregate_revision"
+          ]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "snapshotReady": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "SnapshotReady.v1"
+            },
+            "transport": {
+              "const": "event"
+            },
+            "payload": {
+              "type": "object",
+              "required": [
+                "snapshot_id",
+                "manifest_digest",
+                "taxonomy_revision",
+                "rule_revision",
+                "graph_revision",
+                "recorded_as_of"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "snapshot_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "manifest_digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                "taxonomy_revision": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "rule_revision": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "graph_revision": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "recorded_as_of": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "aggregate_revision": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "transport",
+            "aggregate_revision"
+          ]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "evidenceQuery": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "EvidenceQuery.v1"
+            },
+            "transport": {
+              "const": "query"
+            },
+            "payload": {
+              "type": "object",
+              "required": [
+                "query_vi",
+                "legal_as_of",
+                "recorded_as_of",
+                "snapshot_id",
+                "scope_ref",
+                "filters",
+                "top_k"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "query_vi": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "query_original": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "query_language": {
+                  "description": "Ngôn ngữ của query_original.",
+                  "enum": ["vi", "en"]
+                },
+                "legal_as_of": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "recorded_as_of": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "snapshot_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "scope_ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "filters": {
+                  "type": "object",
+                  "required": [
+                    "verified_only"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "verified_only": {
+                      "const": true
+                    },
+                    "jurisdiction_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "domain_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "uniqueItems": true
+                    }
+                  }
+                },
+                "top_k": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "dependentRequired": {
+                "query_original": ["query_language"],
+                "query_language": ["query_original"]
+              }
+            },
+            "deadline_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "transport",
+            "deadline_at"
+          ]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "modelRequest": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "ModelRequest.v1"
+            },
+            "transport": {
+              "const": "command"
+            },
+            "payload": {
+              "type": "object",
+              "required": [
+                "purpose",
+                "data_class",
+                "scope_ref",
+                "prompt_ref",
+                "model_config_id",
+                "quota_reservation_id",
+                "max_output_tokens"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "purpose": {
+                  "enum": [
+                    "translation",
+                    "generation",
+                    "verification",
+                    "planning",
+                    "extraction",
+                    "evaluation"
+                  ]
+                },
+                "data_class": {
+                  "enum": [
+                    "public",
+                    "synthetic",
+                    "tenant_redacted",
+                    "restricted"
+                  ]
+                },
+                "scope_ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "prompt_ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "model_config_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "quota_reservation_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "max_output_tokens": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "deadline_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "transport",
+            "deadline_at"
+          ]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "gateReport": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/envelope"
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "GateReport.v1"
+            },
+            "transport": {
+              "const": "event"
+            },
+            "payload": {
+              "type": "object",
+              "required": [
+                "gate",
+                "manifest_digest",
+                "dataset_digest",
+                "scope",
+                "status",
+                "independent_groups",
+                "s0_count",
+                "s1_count",
+                "metrics",
+                "report_ref"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "gate": {
+                  "type": "string",
+                  "pattern": "^G[0-8]$"
+                },
+                "manifest_digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                "dataset_digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                "scope": {
+                  "$ref": "#/$defs/scope"
+                },
+                "status": {
+                  "enum": [
+                    "PASS",
+                    "FAIL",
+                    "INSUFFICIENT_EVIDENCE",
+                    "BLOCKED",
+                    "NOT_RUN"
+                  ]
+                },
+                "independent_groups": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "s0_count": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "s1_count": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "metrics": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/metric"
+                  }
+                },
+                "report_ref": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "if": {
+                "properties": {"status": {"const": "PASS"}}
+              },
+              "then": {
+                "properties": {
+                  "s0_count": {"const": 0},
+                  "s1_count": {"const": 0}
+                }
+              }
+            },
+            "aggregate_revision": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "transport",
+            "aggregate_revision"
+          ]
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  }
+}
